@@ -1,0 +1,27 @@
+﻿<Window x:Class="Task_3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:task3="clr-namespace:Task_3"
+        xmlns:wpfControlElements="clr-namespace:Task_3.WPF_Control_Elements"
+        xmlns:spinner="clr-namespace:Task_3.WPF_Control_Elements.Spinner"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <!-- <StackPanel Orientation="Vertical"> -->
+    <!--     <TextBox Text="{Binding Path=SynchronizedText, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"/> -->
+    <!--     <TextBlock Text="{Binding Path=SynchronizedText, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/> -->
+    <!--     <wpfControlElements:Spinner> -->
+    <!--          -->
+    <!--     </wpfControlElements:Spinner> -->
+    <!-- </StackPanel> -->
+    
+    <spinner:CircularProgressBar x:Name="progressBar"
+                                 CirclesQuantity="9"
+                                 CirclesSize="20"
+                                 DockPanel.Dock="Left"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Top"
+                                 Height="145"
+                                 Margin="18,10" />
+</Window>

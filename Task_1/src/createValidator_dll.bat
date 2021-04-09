@@ -1,0 +1,1 @@
+csc -out:Validator.dll -t:library *.cs
