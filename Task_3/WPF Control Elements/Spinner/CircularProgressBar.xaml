@@ -19,7 +19,7 @@
                     </Style>
                 </ResourceDictionary>
             </DataTemplate.Resources>
-            <Ellipse x:Name="_circle0"
+            <Ellipse
                      Width="20"
                      Height="20"
                      Canvas.Left="0"
@@ -35,65 +35,43 @@
     
     
     
-    <StackPanel Margin="100">
-        <Canvas x:Name="canvas" >
-            <!-- <Button>AAA2</Button> -->
-            <ItemsControl ItemTemplate="{StaticResource EllipseDataTemplate}"
-                      ItemsSource="{Binding Ellipses, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CircularProgressBar}}}">
-                <!-- <ItemsControl.ItemContainerStyle> -->
-                <!--     <Style TargetType="Canvas"> -->
-                <!--         ~1~ привязать координаты эллипсов и менять x y чтобы было движение по кругу эллипсов внутри канваса @1@ -->
-                <!--     </Style> -->
-                <!-- </ItemsControl.ItemContainerStyle> -->
-                <!-- <ItemsControl.Resources> -->
-                <!--     <Style TargetType="Canvas"> -->
-                <!--         <Setter Property="RenderTransform"> -->
-                <!--             <Setter.Value> -->
-                <!--                 <RotateTransform Angle="0" /> -->
-                <!--             </Setter.Value> -->
-                <!--         </Setter> -->
-                <!--     </Style> -->
-                <!-- -->
-                <!-- </ItemsControl.Resources> -->
-                <!-- <ItemsControl.RenderTransform> -->
-                <!--     <RotateTransform Angle="270"/> -->
-                <!-- </ItemsControl.RenderTransform> -->
+    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Canvas VerticalAlignment="Center" 
+                HorizontalAlignment="Center"  
+                Margin="0,0,0,0"
+                RenderTransformOrigin="0.0,0.0"
+                >
+            <!-- <Button>AAA</Button> -->
+            <ItemsControl x:Name="ItemsControl"
+                          ItemTemplate="{StaticResource EllipseDataTemplate}"
+                          ItemsSource="{Binding Ellipses, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CircularProgressBar}}}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Canvas 
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Width="0"
-                                Height="0"
-                                Loaded="OnCanvasLoaded">
-                            <!-- Если вот это добавить, то .cs фалй не может достать до переменной _spinnerRotate -->
-                            <!-- <Canvas.RenderTransform> -->
-                            <!--     <RotateTransform Angle="{Binding TransformAngle, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CircularProgressBar}} }" /> -->
-                            <!-- </Canvas.RenderTransform> -->
-                            
+                        <Canvas
+                            Loaded="OnEllipseCanvasLoaded">
+                            <!-- HorizontalAlignment="Left" -->
+                            <!-- VerticalAlignment="Center" -->
+                            <!-- Width="0" -->
+                            <!-- Height="0" -->
                         </Canvas>
                         
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-                
-                
             </ItemsControl>
             <Canvas.RenderTransform>
-                <RotateTransform x:Name="Transform" Angle="0" CenterX="0" CenterY="0"/> 
+                <RotateTransform Angle="0" CenterX="0" CenterY="0"/> 
             </Canvas.RenderTransform>
             <Canvas.Triggers>
-                <EventTrigger RoutedEvent="Window.Loaded">
+                <EventTrigger RoutedEvent="Canvas.Loaded">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="(Canvas.RenderTransform).(RotateTransform.Angle)" To="360" Duration="0:0:3" RepeatBehavior="Forever" />
+                            <DoubleAnimation Storyboard.TargetProperty="(Canvas.RenderTransform).(RotateTransform.Angle)" To="360" Duration="0:0:10" RepeatBehavior="Forever" />
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
             </Canvas.Triggers>
-        
-        
         </Canvas>
-    </StackPanel>
+    </Grid>
      
    
 </UserControl>

@@ -6,6 +6,7 @@
         xmlns:task3="clr-namespace:Task_3"
         xmlns:wpfControlElements="clr-namespace:Task_3.WPF_Control_Elements"
         xmlns:spinner="clr-namespace:Task_3.WPF_Control_Elements.Spinner"
+        xmlns:spinner2="clr-namespace:Task_3.WPF_Control_Elements.Spinner"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <!-- <StackPanel Orientation="Vertical"> -->
@@ -16,12 +17,19 @@
     <!--     </wpfControlElements:Spinner> -->
     <!-- </StackPanel> -->
     
+    
+    
     <spinner:CircularProgressBar x:Name="progressBar"
-                                 CirclesQuantity="19"
-                                 CirclesSize="20"
-                                 DockPanel.Dock="Left"
-                                 HorizontalAlignment="Left"
-                                 VerticalAlignment="Top"
-                                 Height="145"
-                                 Margin="18,10" />
+                                 CirclesQuantity="30"
+                                 Radius="120"
+                                 CirclesSize="20"/>
+    <!-- <spinner:CircularProgressBar x:Name="progressBar" -->
+    <!--                              CirclesQuantity="19" -->
+    <!--                              CirclesSize="20" -->
+    <!--                              DockPanel.Dock="Left" -->
+    <!--                              HorizontalAlignment="Left" -->
+    <!--                              VerticalAlignment="Top" -->
+    <!--                              Height="145" -->
+    <!--                              Margin="18,10" /> -->
+    <!-- <spinner2:TempSPinner></spinner2:TempSPinner> -->
 </Window>
