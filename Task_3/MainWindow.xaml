@@ -20,7 +20,7 @@
     
     
     <spinner:CircularProgressBar x:Name="progressBar"
-                                 CirclesQuantity="30"
+                                 CirclesQuantity="88"
                                  Radius="120"
                                  CirclesSize="20"/>
     <!-- <spinner:CircularProgressBar x:Name="progressBar" -->
