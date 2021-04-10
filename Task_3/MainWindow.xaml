@@ -17,7 +17,7 @@
     <!-- </StackPanel> -->
     
     <spinner:CircularProgressBar x:Name="progressBar"
-                                 CirclesQuantity="9"
+                                 CirclesQuantity="19"
                                  CirclesSize="20"
                                  DockPanel.Dock="Left"
                                  HorizontalAlignment="Left"

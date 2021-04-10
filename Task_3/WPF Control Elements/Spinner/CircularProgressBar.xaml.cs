@@ -70,11 +70,11 @@ namespace Task_3.WPF_Control_Elements.Spinner
                 //OnPropertyChanged(nameof(Ellipses));
             }
         }
-        private static void SetPosition(DependencyObject ellipse, double offset, double posOffSet, double step)
+        private static void SetPosition(DependencyObject ellipse, double x, double y, double ellipseNumber, double angleStep)
         {
             //50 + 
-            ellipse.SetValue(Canvas.LeftProperty, (Math.Sin(offset + (posOffSet * step)) * 50));
-            ellipse.SetValue(Canvas.TopProperty, (Math.Cos(offset + (posOffSet * step)) * 50));
+            ellipse.SetValue(Canvas.LeftProperty, x*Math.Cos(ellipseNumber*angleStep) - y*Math.Sin(ellipseNumber*angleStep));
+            ellipse.SetValue(Canvas.TopProperty, x*Math.Sin(ellipseNumber*angleStep) + y*Math.Cos(ellipseNumber*angleStep));
            
         }
         private void Start()
@@ -139,18 +139,21 @@ namespace Task_3.WPF_Control_Elements.Spinner
         
         private void OnCanvasLoaded(object sender, RoutedEventArgs e)
         {
-            const double offset = Math.PI;
-            double step = Math.PI * 2 / (double)(CirclesQuantity + 1);
+            //const double offset = Math.PI;
+            //double step = Math.PI * 2 / (double)(CirclesQuantity + 1);
+            double step = 360 / (double)(CirclesQuantity );
             double opacityStep = 1.0 / CirclesQuantity;
 
 
             //MessageBox.Show("Hello, world!", "My App");
-            int i = 0;
+            double i = 0;
+            double x = 100;
+            double y = 0;
             foreach (var ellipse in Ellipses)
             {
                 // ellipse.SetValue(Canvas.LeftProperty, 0);
                 // ellipse.SetValue(Canvas.TopProperty, 0);
-                SetPosition(ellipse, offset, i, step);
+                SetPosition(ellipse, x, y, i, step);
                 i++;
             }
             

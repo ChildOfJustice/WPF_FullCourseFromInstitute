@@ -37,7 +37,7 @@
     
     <StackPanel Margin="100">
         <Canvas x:Name="canvas" >
-            <Button>AAA2</Button>
+            <!-- <Button>AAA2</Button> -->
             <ItemsControl ItemTemplate="{StaticResource EllipseDataTemplate}"
                       ItemsSource="{Binding Ellipses, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CircularProgressBar}}}">
                 <!-- <ItemsControl.ItemContainerStyle> -->
