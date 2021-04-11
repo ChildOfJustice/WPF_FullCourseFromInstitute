@@ -1,4 +1,6 @@
 ﻿using Task_3.ViewModels;
+using Task_3.WPF_Control_Elements.APp;
+using Task_3.WPF_Control_Elements.DialogHost;
 
 namespace Task_3
 {
@@ -10,6 +12,7 @@ namespace Task_3
         public MainWindow()
         {
             InitializeComponent();
+            
             //this.DataContext = new MainWindowViewModel();
         }
     }

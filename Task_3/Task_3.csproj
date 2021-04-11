@@ -52,6 +52,15 @@
         </ApplicationDefinition>
         <Compile Include="ViewModels\BaseViewModel.cs" />
         <Compile Include="ViewModels\MainWindowViewModel.cs" />
+        <Compile Include="ViewModels\RelayCommand.cs" />
+        <Compile Include="WPF Control Elements\APp\ApplicationViewModel.cs" />
+        <Compile Include="WPF Control Elements\DialogHost\DialogHostElement.xaml.cs">
+          <DependentUpon>DialogHostElement.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="WPF Control Elements\DialogHost\DialogHostViewModel.cs" />
+        <Compile Include="WPF Control Elements\DialogHost\DialogWindow.xaml.cs">
+          <DependentUpon>DialogWindow.xaml</DependentUpon>
+        </Compile>
         <Compile Include="WPF Control Elements\Spinner\CircularProgressBar.xaml.cs">
           <DependentUpon>Spinner.xaml</DependentUpon>
         </Compile>
@@ -68,7 +77,10 @@
             <DependentUpon>MainWindow.xaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
+        <Page Include="WPF Control Elements\DialogHost\DialogHostElement.xaml" />
+        <Page Include="WPF Control Elements\DialogHost\DialogWindow.xaml" />
         <Page Include="WPF Control Elements\Spinner\CircularProgressBar.xaml" />
+        <Page Include="WPF Styles\Styles.xaml" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Properties\AssemblyInfo.cs">
@@ -86,9 +98,6 @@
     </ItemGroup>
     <ItemGroup>
         <None Include="App.config" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="WPF Control Elements" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

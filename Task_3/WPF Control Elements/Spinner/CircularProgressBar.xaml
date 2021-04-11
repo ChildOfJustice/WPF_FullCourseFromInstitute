@@ -65,7 +65,7 @@
                 <EventTrigger RoutedEvent="Canvas.Loaded">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="(Canvas.RenderTransform).(RotateTransform.Angle)" To="360" Duration="0:0:10" RepeatBehavior="Forever" />
+                            <DoubleAnimation x:Name="Animation" Storyboard.TargetProperty="(Canvas.RenderTransform).(RotateTransform.Angle)"   RepeatBehavior="Forever" />
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>

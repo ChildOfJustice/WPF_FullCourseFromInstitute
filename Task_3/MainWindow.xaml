@@ -6,9 +6,11 @@
         xmlns:task3="clr-namespace:Task_3"
         xmlns:wpfControlElements="clr-namespace:Task_3.WPF_Control_Elements"
         xmlns:spinner="clr-namespace:Task_3.WPF_Control_Elements.Spinner"
-        xmlns:spinner2="clr-namespace:Task_3.WPF_Control_Elements.Spinner"
+        xmlns:dialog="clr-namespace:Task_3.WPF_Control_Elements.DialogHost"
+        
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+    
     <!-- <StackPanel Orientation="Vertical"> -->
     <!--     <TextBox Text="{Binding Path=SynchronizedText, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"/> -->
     <!--     <TextBlock Text="{Binding Path=SynchronizedText, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/> -->
@@ -18,18 +20,27 @@
     <!-- </StackPanel> -->
     
     
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <dialog:DialogHostElement></dialog:DialogHostElement>
+        
+        <!-- <spinner:CircularProgressBar -->
+        <!--     Grid.Column="1" -->
+        <!--     Grid.Row="1" -->
+        <!-- -->
+        <!--     Color="Brown" -->
+        <!--     CirclesQuantity="30" -->
+        <!--     CirclesSize="20" -->
+        <!--     ClockDirection="True" -->
+        <!--     Speed="10"/> -->
+    </Grid>
     
-    <spinner:CircularProgressBar x:Name="progressBar"
-                                 CirclesQuantity="88"
-                                 Radius="120"
-                                 CirclesSize="20"/>
-    <!-- <spinner:CircularProgressBar x:Name="progressBar" -->
-    <!--                              CirclesQuantity="19" -->
-    <!--                              CirclesSize="20" -->
-    <!--                              DockPanel.Dock="Left" -->
-    <!--                              HorizontalAlignment="Left" -->
-    <!--                              VerticalAlignment="Top" -->
-    <!--                              Height="145" -->
-    <!--                              Margin="18,10" /> -->
-    <!-- <spinner2:TempSPinner></spinner2:TempSPinner> -->
 </Window>

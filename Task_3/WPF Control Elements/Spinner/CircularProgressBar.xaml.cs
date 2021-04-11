@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
 namespace Task_3.WPF_Control_Elements.Spinner
@@ -107,6 +108,7 @@ namespace Task_3.WPF_Control_Elements.Spinner
         {
             
             double ActualSize = Size;
+            
             double opacityStep = 1.0 / CirclesQuantity;
             for (int i = 0; i < CirclesQuantity; i++)
             {
@@ -122,9 +124,22 @@ namespace Task_3.WPF_Control_Elements.Spinner
             // int xCenter = 20;
             // int yCenter = 20;
             
-            int dt = 30 / Speed;
-            double dphi = 1;
-            if (!ClockDirection) dphi *= -1;
+            if (ClockDirection)
+                Animation.To = 360;
+            else
+                Animation.To = -360;
+
+            try
+            {
+                double maxSpeed = 100;
+                double temp = maxSpeed / Speed;
+                int intTimeSpan = (int)Math.Round(temp);
+                Animation.Duration = new Duration(TimeSpan.Parse("0:0:"+intTimeSpan));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show((1/Speed).ToString());
+            }
 
             int startX = Radius;
             int startY = 0;
