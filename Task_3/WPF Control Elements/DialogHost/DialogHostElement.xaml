@@ -8,6 +8,16 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
+            <!-- <Style x:Key="BindingForCornerRadius" -->
+            <!--        TargetType="{x:Type Border}"> -->
+            <!--     <Style.Setters> -->
+            <!--         <Setter Property="CornerRadius" -->
+            <!--                 Value="{Binding CornerRadiusConfiguration, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DialogHostElement}}}" /> -->
+            <!--     </Style.Setters> -->
+            <!-- </Style> -->
+
+            
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary 
                     Source="../../WPF Styles/Styles.xaml">
@@ -15,12 +25,13 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Border Background="Black">
+    <Border Background="Black"
+            x:Name="BackGroundBorder">
         <Border.InputBindings>
             <MouseBinding MouseAction="LeftClick" Command="{Binding OpenDialogCommand}"></MouseBinding>
         </Border.InputBindings>
-        <Border Background="White"
-                CornerRadius="0,30,50,100" >
+        <Border x:Name="WorkSpaceBorder" 
+                Background="White">
         </Border>
     </Border>
 </UserControl>

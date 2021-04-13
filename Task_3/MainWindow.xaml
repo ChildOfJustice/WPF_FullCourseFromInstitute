@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:task3="clr-namespace:Task_3"
         xmlns:wpfControlElements="clr-namespace:Task_3.WPF_Control_Elements"
+        xmlns:vms="clr-namespace:Task_3.ViewModels"
+        xmlns:local="clr-namespace:Task_3"
         xmlns:spinner="clr-namespace:Task_3.WPF_Control_Elements.Spinner"
         xmlns:dialog="clr-namespace:Task_3.WPF_Control_Elements.DialogHost"
         
@@ -30,17 +32,21 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         
-        <dialog:DialogHostElement></dialog:DialogHostElement>
+        <dialog:DialogHostElement
+            AllCornerRadius="20, 20, 200, 20"    
+            Transparency="120"
+            Command="{Binding CommandForDialogBox, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}}"
+            ></dialog:DialogHostElement>
         
-        <!-- <spinner:CircularProgressBar -->
-        <!--     Grid.Column="1" -->
-        <!--     Grid.Row="1" -->
-        <!-- -->
-        <!--     Color="Brown" -->
-        <!--     CirclesQuantity="30" -->
-        <!--     CirclesSize="20" -->
-        <!--     ClockDirection="True" -->
-        <!--     Speed="10"/> -->
+        <spinner:CircularProgressBar
+            Grid.Column="1"
+            Grid.Row="1"
+        
+            Color="Brown"
+            CirclesQuantity="30"
+            CirclesSize="20"
+            ClockDirection="True"
+            Speed="10"/>
     </Grid>
     
 </Window>

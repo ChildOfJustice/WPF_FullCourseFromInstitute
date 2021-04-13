@@ -53,7 +53,6 @@
         <Compile Include="ViewModels\BaseViewModel.cs" />
         <Compile Include="ViewModels\MainWindowViewModel.cs" />
         <Compile Include="ViewModels\RelayCommand.cs" />
-        <Compile Include="WPF Control Elements\APp\ApplicationViewModel.cs" />
         <Compile Include="WPF Control Elements\DialogHost\DialogHostElement.xaml.cs">
           <DependentUpon>DialogHostElement.xaml</DependentUpon>
         </Compile>

@@ -6,8 +6,21 @@ namespace Task_3.ViewModels
     public class MainWindowViewModel : BaseViewModel
     {
 
+        public MainWindowViewModel()
+        {
+            _cornerRadiusConfiguration = new CornerRadius(20, 100, 30, 2);
+        }
+        
+        
+        
         #region DialogHost
 
+        private CornerRadius _cornerRadiusConfiguration;
+        public CornerRadius CornerRadiusConfiguration
+        {
+            get { return this._cornerRadiusConfiguration; }
+            set { this._cornerRadiusConfiguration = value; }
+        }
         //
         //
         //
@@ -33,8 +46,9 @@ namespace Task_3.ViewModels
         //     Dialogs.DialogService.DialogResult result =
         //         this.dialogFacade.ShowDialogYesNo("Question", parameter as Window);
         // }
+
         #endregion
-        
+
         // private string _synchronizedText;
         // public string SynchronizedText
         // {

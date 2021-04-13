@@ -10,15 +10,20 @@
         WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight"
         AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" ResizeMode="CanResizeWithGrip">
-    <Border Background="Black"
-            BorderBrush="#395984"
-            CornerRadius="0,20,30,40" >
-        <!-- <spinner:CircularProgressBar></spinner:CircularProgressBar> -->
-        
-        <ContentPresenter Width="300"
-                          Height="300"
-                          Content="{Binding}">
+    <ContentPresenter Width="300"
+                      Height="300"
+                      Content="{Binding}">
             
-        </ContentPresenter>
-    </Border>
+    </ContentPresenter>
+    <!-- <Border Background="Black" -->
+    <!--         BorderBrush="#395984" -->
+    <!--         CornerRadius="0,20,30,40" > -->
+    <!--     ~1~ <spinner:CircularProgressBar></spinner:CircularProgressBar> @1@ -->
+    <!--      -->
+    <!--     <ContentPresenter Width="300" -->
+    <!--                       Height="300" -->
+    <!--                       Content="{Binding}"> -->
+    <!--          -->
+    <!--     </ContentPresenter> -->
+    <!-- </Border> -->
 </Window>

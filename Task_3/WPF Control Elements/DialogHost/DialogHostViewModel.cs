@@ -8,8 +8,15 @@ namespace Task_3.WPF_Control_Elements.DialogHost
     public class DialogHostViewModel : BaseViewModel
     {
         private RelayCommand openDialogCommand;
+        
+        
         public RelayCommand OpenDialogCommand
         {
+            set
+            {
+                openDialogCommand = value;
+                OnPropertyChanged(nameof(OpenDialogCommand));
+            }
             get
             {
                 return openDialogCommand ??
