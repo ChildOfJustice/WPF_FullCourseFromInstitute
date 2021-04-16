@@ -32,6 +32,9 @@
         </Border.InputBindings>
         <Border x:Name="WorkSpaceBorder" 
                 Background="White">
+            <Button
+                Height="10"
+                Width="10">AAA</Button>
         </Border>
     </Border>
 </UserControl>

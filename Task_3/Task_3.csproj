@@ -67,6 +67,9 @@
         <Compile Include="WPF Control Elements\DialogHost\DialogWindow.xaml.cs">
           <DependentUpon>DialogWindow.xaml</DependentUpon>
         </Compile>
+        <Compile Include="WPF Control Elements\SpinnerDialog\SpinnerDialogElement.xaml.cs">
+          <DependentUpon>SpinnerDialogElement.xaml</DependentUpon>
+        </Compile>
         <Compile Include="WPF Control Elements\Spinner\CircularProgressBar.xaml.cs">
           <DependentUpon>Spinner.xaml</DependentUpon>
         </Compile>
@@ -85,6 +88,7 @@
         </Compile>
         <Page Include="WPF Control Elements\DialogHost\DialogHostElement.xaml" />
         <Page Include="WPF Control Elements\DialogHost\DialogWindow.xaml" />
+        <Page Include="WPF Control Elements\SpinnerDialog\SpinnerDialogElement.xaml" />
         <Page Include="WPF Control Elements\Spinner\CircularProgressBar.xaml" />
         <Page Include="WPF Styles\Styles.xaml" />
     </ItemGroup>

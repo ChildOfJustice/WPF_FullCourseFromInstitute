@@ -8,7 +8,8 @@
         xmlns:vms="clr-namespace:Task_3.ViewModels"
         xmlns:local="clr-namespace:Task_3"
         xmlns:spinner="clr-namespace:Task_3.WPF_Control_Elements.Spinner"
-        xmlns:dialog="clr-namespace:Task_3.WPF_Control_Elements.DialogHost"
+        xmlns:dialogHost="clr-namespace:Task_3.WPF_Control_Elements.DialogHost"
+        xmlns:spinnerDialog="clr-namespace:Task_3.WPF_Control_Elements.SpinnerDialog"
         
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
@@ -32,11 +33,17 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         
-        <dialog:DialogHostElement
+        <dialogHost:DialogHostElement
             AllCornerRadius="20, 20, 200, 20"    
             Transparency="120"
             Command="{Binding CommandForDialogBox, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}}"
-            ></dialog:DialogHostElement>
+            ></dialogHost:DialogHostElement>
+        
+        <spinnerDialog:SpinnerDialogElement
+            Grid.Column="0"
+            Grid.Row="1">
+            
+        </spinnerDialog:SpinnerDialogElement>
         
         <spinner:CircularProgressBar
             Grid.Column="1"
