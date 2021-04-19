@@ -10,6 +10,7 @@
         xmlns:spinner="clr-namespace:Task_3.WPF_Control_Elements.Spinner"
         xmlns:dialogHost="clr-namespace:Task_3.WPF_Control_Elements.DialogHost"
         xmlns:spinnerDialog="clr-namespace:Task_3.WPF_Control_Elements.SpinnerDialog"
+        xmlns:messageDialog="clr-namespace:Task_3.WPF_Control_Elements.MessageDialog"
         
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
@@ -35,15 +36,28 @@
         
         <dialogHost:DialogHostElement
             AllCornerRadius="20, 20, 200, 20"    
-            Transparency="120"
+            Transparency="0.5"
             Command="{Binding CommandForDialogBox, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}}"
             ></dialogHost:DialogHostElement>
         
+        
+        <messageDialog:MessageDialogElement
+            Grid.Column="1"
+            Grid.Row="0"
+            
+            DialogType="Alert"
+            >
+        </messageDialog:MessageDialogElement>
+        
         <spinnerDialog:SpinnerDialogElement
             Grid.Column="0"
-            Grid.Row="1">
+            Grid.Row="1"
             
+            SpinnerCirclesQuantity="100"
+            >
         </spinnerDialog:SpinnerDialogElement>
+        
+        
         
         <spinner:CircularProgressBar
             Grid.Column="1"

@@ -6,25 +6,6 @@
              xmlns:local="clr-namespace:Task_3.WPF_Control_Elements.DialogHost"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <!-- <Style x:Key="BindingForCornerRadius" -->
-            <!--        TargetType="{x:Type Border}"> -->
-            <!--     <Style.Setters> -->
-            <!--         <Setter Property="CornerRadius" -->
-            <!--                 Value="{Binding CornerRadiusConfiguration, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DialogHostElement}}}" /> -->
-            <!--     </Style.Setters> -->
-            <!-- </Style> -->
-
-            
-            
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary 
-                    Source="../../WPF Styles/Styles.xaml">
-                </ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
     <Border Background="Black"
             x:Name="BackGroundBorder">
         <Border.InputBindings>
@@ -32,9 +13,10 @@
         </Border.InputBindings>
         <Border x:Name="WorkSpaceBorder" 
                 Background="White">
-            <Button
-                Height="10"
-                Width="10">AAA</Button>
+            <ContentPresenter x:Name="ContentPresenter">
+                <!-- Content="{Binding}" -->
+            
+            </ContentPresenter>
         </Border>
     </Border>
 </UserControl>

@@ -22,13 +22,13 @@ namespace Task_3.WPF_Control_Elements.DialogHost
                 return openDialogCommand ??
                        (openDialogCommand = new RelayCommand(obj =>
                        {
-                           // MessageBox.Show("COMMAND");
-                           DialogWindow win = new DialogWindow();
+                           MessageBox.Show("COMMAND");
+                           //DialogWindow win = new DialogWindow();
                            // if (owner != null)
                            //     win.Owner = owner;
-                           var vm = new CircularProgressBar();
-                           win.DataContext = vm;
-                           win.ShowDialog();
+                           //var vm = new CircularProgressBar();
+                           //win.DataContext = vm;
+                           //win.ShowDialog();
                        }));
             }
         }

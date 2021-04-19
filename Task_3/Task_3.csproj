@@ -64,8 +64,21 @@
           <DependentUpon>DialogHostElement.xaml</DependentUpon>
         </Compile>
         <Compile Include="WPF Control Elements\DialogHost\DialogHostViewModel.cs" />
-        <Compile Include="WPF Control Elements\DialogHost\DialogWindow.xaml.cs">
-          <DependentUpon>DialogWindow.xaml</DependentUpon>
+        <Compile Include="WPF Control Elements\MessageDialog\Alert.xaml.cs">
+          <DependentUpon>Alert.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="WPF Control Elements\MessageDialog\Confirm.xaml.cs">
+          <DependentUpon>Confirm.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="WPF Control Elements\MessageDialog\MessageDialogElement.xaml.cs">
+          <DependentUpon>MessageDialogElement.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="WPF Control Elements\MessageDialog\MessageDialogViewModel.cs" />
+        <Compile Include="WPF Control Elements\MessageDialog\Prompt.xaml.cs">
+          <DependentUpon>Prompt.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="WPF Control Elements\SpinnerDialog\Content.xaml.cs">
+          <DependentUpon>Content.xaml</DependentUpon>
         </Compile>
         <Compile Include="WPF Control Elements\SpinnerDialog\SpinnerDialogElement.xaml.cs">
           <DependentUpon>SpinnerDialogElement.xaml</DependentUpon>
@@ -87,7 +100,11 @@
             <SubType>Code</SubType>
         </Compile>
         <Page Include="WPF Control Elements\DialogHost\DialogHostElement.xaml" />
-        <Page Include="WPF Control Elements\DialogHost\DialogWindow.xaml" />
+        <Page Include="WPF Control Elements\MessageDialog\Alert.xaml" />
+        <Page Include="WPF Control Elements\MessageDialog\Confirm.xaml" />
+        <Page Include="WPF Control Elements\MessageDialog\MessageDialogElement.xaml" />
+        <Page Include="WPF Control Elements\MessageDialog\Prompt.xaml" />
+        <Page Include="WPF Control Elements\SpinnerDialog\Content.xaml" />
         <Page Include="WPF Control Elements\SpinnerDialog\SpinnerDialogElement.xaml" />
         <Page Include="WPF Control Elements\Spinner\CircularProgressBar.xaml" />
         <Page Include="WPF Styles\Styles.xaml" />
