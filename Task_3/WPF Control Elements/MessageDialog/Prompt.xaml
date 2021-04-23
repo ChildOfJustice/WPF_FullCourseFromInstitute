@@ -20,8 +20,10 @@
                 
                 <TextBlock
                     TextAlignment="Center"
-                    TextWrapping="Wrap">
-                    Prompt
+                    TextWrapping="Wrap"
+                    FontSize="{Binding MessageTextSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MessageDialogElement}}}"
+                    Text="{Binding Message, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MessageDialogElement}}}"
+                    >
                 </TextBlock>
            
             

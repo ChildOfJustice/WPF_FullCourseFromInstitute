@@ -21,9 +21,11 @@
                 
             <TextBlock
                 TextAlignment="Center"
-                TextWrapping="Wrap">
-                Alert
-                asjdbgaognawngkaw;gjaw;lmg;ema;gweml;gawlegm;awle;gawl!!!!111
+                TextWrapping="Wrap"
+                
+                FontSize="{Binding MessageTextSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MessageDialogElement}}}"
+                Text="{Binding Message, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MessageDialogElement}}}"
+                >
             </TextBlock>
            
             

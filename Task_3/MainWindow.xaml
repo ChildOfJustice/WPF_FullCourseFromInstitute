@@ -46,6 +46,8 @@
             Grid.Row="0"
             
             DialogType="Alert"
+            Message="!ALERT!"
+            MessageTextSize="100"
             >
         </messageDialog:MessageDialogElement>
         
