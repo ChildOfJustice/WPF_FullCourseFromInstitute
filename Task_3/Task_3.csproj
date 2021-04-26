@@ -87,6 +87,7 @@
           <DependentUpon>Spinner.xaml</DependentUpon>
         </Compile>
         <Compile Include="WPF Control Elements\Spinner\SpinnerViewModel.cs" />
+        <Compile Include="WPF Styles\AdjustedScrollViewer.cs" />
         <Page Include="MainWindow.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
@@ -107,6 +108,7 @@
         <Page Include="WPF Control Elements\SpinnerDialog\Content.xaml" />
         <Page Include="WPF Control Elements\SpinnerDialog\SpinnerDialogElement.xaml" />
         <Page Include="WPF Control Elements\Spinner\CircularProgressBar.xaml" />
+        <Page Include="WPF Styles\DidNotWork.xaml" />
         <Page Include="WPF Styles\Styles.xaml" />
     </ItemGroup>
     <ItemGroup>
@@ -125,6 +127,9 @@
     </ItemGroup>
     <ItemGroup>
         <None Include="App.config" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Resources" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

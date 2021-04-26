@@ -7,7 +7,16 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     
-    <ScrollViewer>
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../WPF Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <ScrollViewer Style="{StaticResource MyScrollViewer}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -36,17 +45,31 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+                
+            </Grid>
+            <Grid
+                Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
                 <Button
                     Grid.Column="0"
                         
+                    Margin="20"
                     Command="{Binding OkCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MessageDialogElement}}}"
                 >Ok</Button>
                 <Button
                     Grid.Column="1"
                         
+                    Margin="20"
                     Command="{Binding CancelCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MessageDialogElement}}}"
                 >Cancel</Button>
             </Grid>
+
             
         </Grid>
     </ScrollViewer>

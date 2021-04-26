@@ -2,74 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:wpfStyles="clr-namespace:Task_3.WPF_Styles"
 >
-    <Style x:Key="ButtonStyle"
-           TargetType="{x:Type Button}">
-        <Style.Setters>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border BorderBrush="{TemplateBinding Background}"
-                                
-                                BorderThickness="3">
-                            <TextBlock>TEXT</TextBlock>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="FontSize"
-                    Value="50" />
-            <Setter Property="Foreground"
-                    Value="Black" />
-            <Setter Property="Background"
-                    Value="Chocolate" />
-        </Style.Setters>
-    </Style>
-    
-    <Style x:Key="DerivedButtonStyle"
-           TargetType="{x:Type Button}"
-           BasedOn="{StaticResource ButtonStyle}">
-        <Style.Setters>
-            <Setter Property="FontSize"
-                    Value="30" />
-        </Style.Setters>
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding IsLeftStringVisible}"
-                         Value="True">
-                <DataTrigger.Setters>
-                    <Setter Property="Content"
-                            Value="Switch to right" />
-                </DataTrigger.Setters>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding IsLeftStringVisible}"
-                         Value="False">
-                <DataTrigger.Setters>
-                    <Setter Property="Content"
-                            Value="Switch to left" />
-                </DataTrigger.Setters>
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     <SolidColorBrush x:Key="ColorBrushForeground" 
                      Color="Black"></SolidColorBrush>
-           
-    <Image x:Key="MyImage"
-           Source="../Resources/img.png"
-           Height="{Binding ElementName=SliderH,Path=Value}"
-           Width="{Binding ElementName=SliderW,Path=Value}">
-    </Image>
-            
+    
     <SolidColorBrush x:Key="ColorBrushBackground" 
                      Color="Blue"></SolidColorBrush>
         
@@ -113,35 +50,7 @@
     
     
     
-    
-    
-    <!-- <BitmapImage x:Key="ButtonBitmapImage" UriSource="../Resources/img.png"></BitmapImage> -->
-
-
-    
-
-
-    <Style x:Key="ButtonWithText" 
-           TargetType="{x:Type Button}">
-        <Style.Setters>
-            <Setter Property="FontSize"
-                    Value="{Binding ElementName=NumericUpDown, Path=Text}" />
-            <Setter Property="Foreground"
-                    Value="{DynamicResource ColorBrushForeground}" />
-            <Setter Property="Background"
-                    Value="{DynamicResource ColorBrushBackground}" />
-            <Setter Property="FontFamily"
-                    Value="Times New Roman" />
-        </Style.Setters>
-    </Style>
-
-
-    <Style x:Key="ButtonWithImage"
-           TargetType="{x:Type Button}">
-        <Setter Property="Content"
-                Value="{DynamicResource MyImage}"></Setter>
-    </Style>
-        
+            
 
 
     <Style x:Key="ScrollBarLineButton" TargetType="{x:Type RepeatButton}">
