@@ -12,7 +12,7 @@
         xmlns:spinnerDialog="clr-namespace:Task_3.WPF_Control_Elements.SpinnerDialog"
         xmlns:messageDialog="clr-namespace:Task_3.WPF_Control_Elements.MessageDialog"
         xmlns:wpfStyles="clr-namespace:Task_3.WPF_Styles"
-       
+        xmlns:screenKeyBoard="clr-namespace:Task_3.WPF_Control_Elements.ScreenKeyBoard"
 
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
@@ -22,6 +22,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="WPF Styles/Styles.xaml" />
+                
             </ResourceDictionary.MergedDictionaries>
             
             
@@ -110,7 +111,11 @@
         </ScrollViewer>
         
         
+        <screenKeyBoard:ScreenKeyBoardElement
+            Grid.Row="1"
+            Grid.Column="1">
         
+        </screenKeyBoard:ScreenKeyBoardElement>
         
         
         <!-- <Button Style="{StaticResource ButtonWithText}" -->

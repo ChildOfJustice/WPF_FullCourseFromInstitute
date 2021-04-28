@@ -44,6 +44,10 @@
         <Reference Include="WindowsBase" />
         <Reference Include="PresentationCore" />
         <Reference Include="PresentationFramework" />
+        <Reference Include="WindowsInput, Version=1.0.4.0, Culture=neutral, PublicKeyToken=9b287f7dc5073cad">
+          <HintPath>..\packages\InputSimulator.1.0.4.0\lib\net20\WindowsInput.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
         <ApplicationDefinition Include="App.xaml">
@@ -77,6 +81,9 @@
         <Compile Include="WPF Control Elements\MessageDialog\Prompt.xaml.cs">
           <DependentUpon>Prompt.xaml</DependentUpon>
         </Compile>
+        <Compile Include="WPF Control Elements\ScreenKeyBoard\ScreenKeyBoardElement.xaml.cs">
+          <DependentUpon>ScreenKeyBoardElement.xaml</DependentUpon>
+        </Compile>
         <Compile Include="WPF Control Elements\SpinnerDialog\Content.xaml.cs">
           <DependentUpon>Content.xaml</DependentUpon>
         </Compile>
@@ -106,6 +113,7 @@
         <Page Include="WPF Control Elements\MessageDialog\Confirm.xaml" />
         <Page Include="WPF Control Elements\MessageDialog\MessageDialogElement.xaml" />
         <Page Include="WPF Control Elements\MessageDialog\Prompt.xaml" />
+        <Page Include="WPF Control Elements\ScreenKeyBoard\ScreenKeyBoardElement.xaml" />
         <Page Include="WPF Control Elements\SpinnerDialog\Content.xaml" />
         <Page Include="WPF Control Elements\SpinnerDialog\SpinnerDialogElement.xaml" />
         <Page Include="WPF Control Elements\Spinner\CircularProgressBar.xaml" />
@@ -128,10 +136,19 @@
     </ItemGroup>
     <ItemGroup>
         <None Include="App.config" />
+        <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>
-      <Content Include="Resources\Apex-Legends-HD-Wallpapers-and-Background-Images-Wallpaper-Cart.png" />
-      <Content Include="Resources\img.png" />
+      <Folder Include="Resources" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="WPF Control Elements\ScreenKeyBoard\Keyboards.xaml" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Chones.Keyboard\Rife.Keyboard.csproj">
+        <Project>{efc4cf3a-a974-4e68-b8a3-2b3cd2a42484}</Project>
+        <Name>Rife.Keyboard</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
