@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:wpfStyles="clr-namespace:Task_3.WPF_Styles"
->
+                    xmlns:local="clr-namespace:Task_3.ViewModels">
     <Style x:Key="ButtonStyle"
            TargetType="{x:Type Button}">
         <Style.Setters>
@@ -64,11 +64,11 @@
     <SolidColorBrush x:Key="ColorBrushForeground" 
                      Color="Black"></SolidColorBrush>
            
-    <Image x:Key="MyImage"
-           Source="../Resources/img.png"
-           Height="{Binding ElementName=SliderH,Path=Value}"
-           Width="{Binding ElementName=SliderW,Path=Value}">
-    </Image>
+    <!-- <Image x:Key="MyImage" -->
+    <!--        Source="../Resources/img.png" -->
+    <!--        Height="{Binding ElementName=SliderH,Path=Value}" -->
+    <!--        Width="{Binding ElementName=SliderW,Path=Value}"> -->
+    <!-- </Image> -->
             
     <SolidColorBrush x:Key="ColorBrushBackground" 
                      Color="Blue"></SolidColorBrush>
@@ -121,27 +121,26 @@
     
 
 
-    <Style x:Key="ButtonWithText" 
-           TargetType="{x:Type Button}">
-        <Style.Setters>
-            <Setter Property="FontSize"
-                    Value="{Binding ElementName=NumericUpDown, Path=Text}" />
-            <Setter Property="Foreground"
-                    Value="{DynamicResource ColorBrushForeground}" />
-            <Setter Property="Background"
-                    Value="{DynamicResource ColorBrushBackground}" />
-            <Setter Property="FontFamily"
-                    Value="Times New Roman" />
-        </Style.Setters>
-    </Style>
+    <!-- <Style x:Key="ButtonWithText"  -->
+    <!--        TargetType="{x:Type Button}"> -->
+    <!--     <Style.Setters> -->
+    <!--         <Setter Property="FontSize" -->
+    <!--             Value="{Binding FontSize}"/> -->
+    <!--     </Style.Setters> -->
+    <!-- </Style> -->
 
 
-    <Style x:Key="ButtonWithImage"
-           TargetType="{x:Type Button}">
-        <Setter Property="Content"
-                Value="{DynamicResource MyImage}"></Setter>
-    </Style>
-        
+    <!-- <Style x:Key="ButtonWithImage" -->
+    <!--        TargetType="{x:Type Button}"> -->
+    <!--     <Setter Property="Content" -->
+    <!--             Value="{DynamicResource MyTestImage}"></Setter> -->
+    <!-- </Style> -->
+    <!-- <BitmapImage x:Key="ButtonBitmapImage" UriSource="../Resources/Apex-Legends-HD-Wallpapers-and-Background-Images-Wallpaper-Cart.png"></BitmapImage> -->
+    <!-- <Image x:Key="MyTestImage" -->
+    <!--        Source="{DynamicResource ButtonBitmapImage}" -->
+    <!--        Height="{Binding ElementName=SliderH,Path=Value}" -->
+    <!--        Width="{Binding ElementName=SliderW,Path=Value}"> -->
+    <!-- </Image> -->
 
 
     <Style x:Key="ScrollBarLineButton" TargetType="{x:Type RepeatButton}">

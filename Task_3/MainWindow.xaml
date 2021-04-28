@@ -12,6 +12,7 @@
         xmlns:spinnerDialog="clr-namespace:Task_3.WPF_Control_Elements.SpinnerDialog"
         xmlns:messageDialog="clr-namespace:Task_3.WPF_Control_Elements.MessageDialog"
         xmlns:wpfStyles="clr-namespace:Task_3.WPF_Styles"
+       
 
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
@@ -24,7 +25,21 @@
             </ResourceDictionary.MergedDictionaries>
             
             
-            
+            <Style x:Key="OwnButtonTemplate"
+                   TargetType="{x:Type Button}">
+                <Style.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Image
+                                    Width="{Binding Path=(wpfStyles:AdjustedButton.ImageScaleX), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}}"
+                                    Height="{Binding Path=(wpfStyles:AdjustedButton.ImageScaleY), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}}"
+                                    Source="{TemplateBinding Content}"></Image>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style.Setters>
+            </Style>
         </ResourceDictionary>
     </Window.Resources>
     
@@ -64,13 +79,53 @@
         <!--     <TextBlock>askdnglasnkdglagskadgnlasksaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</TextBlock> -->
         <!-- </wpfStyles:AdjustedScrollViewer> -->
         
-        <ScrollViewer 
+        <Button 
+            Grid.Row="0"
+            Grid.Column="0"
+            Foreground="{Binding ForeGroundColor}"
+            FontSize="{Binding FontSize}"
+            Background="{Binding BackGroundColor}"
+            Content="Text"
+        />
+        
+        
+        <Button
+            Grid.Row="0"
+            Grid.Column="1"
+            Style="{StaticResource OwnButtonTemplate}"
+            Content="{Binding ImageContent}"
+            wpfStyles:AdjustedButton.ImageScaleX="120"
+        >
             
+            <!-- "C:\Users\Administrator\Desktop\READY\ReadyRPKS\Task_3\Resources\img.jpg" -->
+        </Button>
+        
+        <ScrollViewer 
+            Grid.Row="1"
+            Grid.Column="0"
             Style="{DynamicResource ScrollViewerStyle}" 
             HorizontalScrollBarVisibility="Visible"
             wpfStyles:AdjustedScrollViewer.ThumbColor="Blue" >
             <TextBlock>asjkdbasjsdgladas</TextBlock>
         </ScrollViewer>
+        
+        
+        
+        
+        
+        <!-- <Button Style="{StaticResource ButtonWithText}" -->
+        <!--         Margin="0 10" -->
+        <!--         Content="TestButtonWithText"  -->
+        <!--         Grid.Row="0" -->
+        <!--         Grid.Column="1" -->
+        <!-- /> -->
+        <!-- <Button  -->
+        <!--     Style="{DynamicResource ButtonWithImage}" -->
+        <!--     Grid.Row="1" -->
+        <!--     Grid.Column="0" -->
+        <!-- /> -->
+                    
+    
         <!-- <ScrollViewer -->
         <!--     Grid.Column="1" -->
         <!--     Grid.Row="1" -->
