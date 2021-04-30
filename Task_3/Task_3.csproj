@@ -95,6 +95,7 @@
         </Compile>
         <Compile Include="WPF Control Elements\Spinner\SpinnerViewModel.cs" />
         <Compile Include="WPF Styles\AdjustedButton.cs" />
+        <Compile Include="WPF Styles\AdjustedScrollBar.cs" />
         <Compile Include="WPF Styles\AdjustedScrollViewer.cs" />
         <Page Include="MainWindow.xaml">
             <Generator>MSBuild:Compile</Generator>
@@ -143,6 +144,7 @@
     </ItemGroup>
     <ItemGroup>
       <Content Include="WPF Control Elements\ScreenKeyBoard\Keyboards.xaml" />
+      <Content Include="WPF Styles\HowToAdjustThumbColor" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\Chones.Keyboard\Rife.Keyboard.csproj">
