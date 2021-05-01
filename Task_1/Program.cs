@@ -12,16 +12,17 @@ namespace Task_1
 
             Builder<Car> carBuilder = new Builder<Car>();
             carBuilder
-                .AddRule(car => car.hasEngine)
-                .AddRule(car => car.id > 10)
-                .AddRule(car => car.mark.Equals("Tesla"));
+                .AddRule(car => car.hasEngine)              //0
+                .AddRule(car => car.id > 10)                //1
+                .AddRule(car => car.mark.Equals("Tesla"))   //2
+                .AddRule(car => car.mark.Equals("Tesla2")); //3
             Validator<Car> carValidator = null;
             try
             {
                 //run this without cloning and carValidator.SetNext will change the object inside of the Builder
                 carValidator = carBuilder.GetValidator();
                 //without cloning this will take the head pointer and point it to the second rule, which is written above: 
-                carValidator.SetNext(new Validator<Car>(car => car.hasEngine, new List<ValidationException<Car>>()));
+                carValidator.SetNext(new Validator<Car>(car => car.hasEngine, -1,new List<ValidationException<Car>>()));
                 carValidator = carBuilder.GetValidator();
                 
                 
@@ -39,9 +40,10 @@ namespace Task_1
 
 
             Car myCar = new Car();
-            myCar.hasEngine = true;
+            myCar.hasEngine = false;
+            myCar.id = 20;
             myCar.mark = "Tesla";
-            myCar.id = 1;
+            
 
             try
             {
