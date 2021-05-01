@@ -2,7 +2,7 @@
 {
     public class AbstractHandler: IHandler
     {
-        public IHandler _nextHandler;
+        private IHandler _nextHandler;
 
         public IHandler SetNext(IHandler handler)
         {

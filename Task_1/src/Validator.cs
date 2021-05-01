@@ -5,9 +5,9 @@ namespace Task_1
 {
     public class Validator<T>: AbstractHandler, ICloneable
     {
-        public Predicate<T> _rule;
-        public int ruleNumber = -1;
-        public List<ValidationException<T>> _exceptions;
+        private Predicate<T> _rule;
+        private int ruleNumber = -1;
+        private List<ValidationException<T>> _exceptions;
         
         public object Clone()
         {
