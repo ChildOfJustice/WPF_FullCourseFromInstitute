@@ -27,8 +27,8 @@ namespace Task_8.AsyncCypher
                     encryptedData = desFramework.EncryptData(props.Data);
                     
                     //EXPORT THE USED KEY
-                    if(props.BlockNumber == props.BlocksQuantity - 1)
-                        desFramework.ExportKey(keyFilePath);
+                    // if(props.BlockNumber == props.BlocksQuantity - 1)
+                    //     desFramework.ExportKey(keyFilePath);
                     return new TaskProperties(props.BlockNumber, props.BlocksQuantity,  props.Algorithm, encryptedData);
                     break;
                 case CypherAlgorithm.TripleDES:
@@ -46,8 +46,8 @@ namespace Task_8.AsyncCypher
                     encryptedData = tripleDesFramework.EncryptData(props.Data);
                     
                     //EXPORT THE USED KEY
-                    if(props.BlockNumber == props.BlocksQuantity - 1)
-                        tripleDesFramework.ExportKey(keyFilePath);
+                    // if(props.BlockNumber == props.BlocksQuantity - 1)
+                    //     tripleDesFramework.ExportKey(keyFilePath);
                     return new TaskProperties(props.BlockNumber, props.BlocksQuantity,  props.Algorithm, encryptedData);
                     break;
                 case CypherAlgorithm.Rijndael:
@@ -64,17 +64,17 @@ namespace Task_8.AsyncCypher
                     encryptedData = rijndaelFramework.EncryptData(props.Data);
                     // MessageBox.Show(new ASCIIEncoding().GetString(encryptedData));
                     //EXPORT THE USED KEY
-                    if(props.BlockNumber == props.BlocksQuantity - 1)
-                        rijndaelFramework.ExportKey(keyFilePath);
+                    // if(props.BlockNumber == props.BlocksQuantity - 1)
+                    //     rijndaelFramework.ExportKey(keyFilePath);
                     return new TaskProperties(props.BlockNumber, props.BlocksQuantity,  props.Algorithm, encryptedData);
                 case CypherAlgorithm.RSA:
                     RsaFramework rsaFramework;
 
                     //TODO:
-                    rsaFramework = new RsaFramework(generateKey: true);
-                    rsaFramework.ExportPubKey(keyFilePath+"pub");
-                    rsaFramework.ExportPrivateKey(keyFilePath+"private");
-                    //rsaFramework = new RsaFramework();
+                    //rsaFramework = new RsaFramework(generateKey: true);
+                    // rsaFramework.ExportPubKey(keyFilePath+"pub");
+                    // rsaFramework.ExportPrivateKey(keyFilePath+"private");
+                    rsaFramework = new RsaFramework();
                     
                         
                     rsaFramework.ImportPubKey(keyFilePath + "pub");
@@ -83,11 +83,11 @@ namespace Task_8.AsyncCypher
                     encryptedData = rsaFramework.EncryptData(props.Data);
                     // MessageBox.Show(new ASCIIEncoding().GetString(encryptedData));
                     //EXPORT THE USED KEY
-                    if (props.BlockNumber == props.BlocksQuantity - 1)
-                    {
-                        rsaFramework.ExportPubKey(keyFilePath+"pub");
-                        rsaFramework.ExportPrivateKey(keyFilePath+"private");
-                    }
+                    // if (props.BlockNumber == props.BlocksQuantity - 1)
+                    // {
+                    //     rsaFramework.ExportPubKey(keyFilePath+"pub");
+                    //     rsaFramework.ExportPrivateKey(keyFilePath+"private");
+                    // }
 
                     return new TaskProperties(props.BlockNumber, props.BlocksQuantity,  props.Algorithm, encryptedData);
             }

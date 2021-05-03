@@ -33,9 +33,9 @@ namespace Task_8.Algorythms
         {
             try
             {
-                Key = new byte[8];
+                Key = new byte[16];
                 using (var inputStream = File.OpenRead(inPutFile))
-                    inputStream.Read(Key, 0, 8); // 8 bytes = 64 bit key
+                    inputStream.Read(Key, 0, 16); // 8 bytes = 64 bit key
             }
             catch (Exception e)
             {
