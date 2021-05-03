@@ -5,6 +5,7 @@
         DES,
         TripleDES,
         Rijndael,
-        RSA
+        RSA,
+        None
     }
 }

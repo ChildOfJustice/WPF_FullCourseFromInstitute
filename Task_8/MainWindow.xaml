@@ -43,6 +43,80 @@
             >
                 Cancel
             </Button>
+            
+            
+            <StackPanel
+                Grid.Column="0"
+                Grid.Row="1">
+                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock TextAlignment="Center">Control</TextBlock>
+                </Grid>
+                
+                
+                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <StackPanel
+                        Grid.Column="0"
+                        Grid.Row="0">
+                        <TextBlock TextAlignment="Center">
+                            Choose the algorithm to add
+                        </TextBlock>
+                        <ComboBox Name="phonesList" Height="30" VerticalAlignment="Top"
+                                  SelectionChanged="ComboBox_Selected">
+                            <TextBlock>DES</TextBlock>
+                            <TextBlock>Triple DES</TextBlock>
+                            <TextBlock>Rijndael</TextBlock>
+                            <TextBlock>RSA</TextBlock>
+                        </ComboBox>
+                        <Button Click="OnAddButtonClick">
+                            Add
+                        </Button>
+                    </StackPanel>
+                    
+                    <StackPanel
+                        Grid.Column="1"
+                        Grid.Row="0">
+                        <TextBlock TextAlignment="Center">
+                            Rijndael block size
+                        </TextBlock>
+                        <ComboBox Height="30" VerticalAlignment="Top"
+                                  SelectionChanged="ComboBoxRijndaelBlockSizeSelected">
+                            <TextBlock>128</TextBlock>
+                            <TextBlock>192</TextBlock>
+                            <TextBlock>256</TextBlock>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Column="2"
+                        Grid.Row="0">
+                        <TextBlock TextAlignment="Center">
+                            Rijndael key size
+                        </TextBlock>
+                        <ComboBox Height="30" VerticalAlignment="Top"
+                                  SelectionChanged="ComboBoxRijndaelKeySizeSelected">
+                            <TextBlock>128</TextBlock>
+                            <TextBlock>192</TextBlock>
+                            <TextBlock>256</TextBlock>
+                        </ComboBox>
+                    </StackPanel>
+                    
+                    
+                </Grid>
+                
+            </StackPanel>
            
         </Grid>
     </DockPanel>

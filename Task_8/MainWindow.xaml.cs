@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using Task_8.AsyncCypher;
 using Task_8.Algorythms;
@@ -19,9 +20,9 @@ namespace Task_8
             DataContext = _mainWindowViewModel;
 
 
-            _mainWindowViewModel.TasksList.AddFirst(new TaskManager());
-            _mainWindowViewModel.TasksList.AddBefore(_mainWindowViewModel.TasksList.First, new TaskManager());
-            _mainWindowViewModel.TasksList.AddBefore(_mainWindowViewModel.TasksList.First, new TaskManager());
+            // _mainWindowViewModel.TasksList.AddFirst(new TaskManager());
+            // _mainWindowViewModel.TasksList.AddBefore(_mainWindowViewModel.TasksList.First, new TaskManager());
+            // _mainWindowViewModel.TasksList.AddBefore(_mainWindowViewModel.TasksList.First, new TaskManager());
         }
 
         private void OnEncryptButtonClick(object sender, RoutedEventArgs e)
@@ -45,7 +46,7 @@ namespace Task_8
                         else
                             element.Value.inputFilePath = "./resources/encryptedPart"+(counter-1)+".txt";
                         
-                        element.Value.RunEncryptionProcess(CypherAlgorithm.DES, 8, 3);
+                        element.Value.RunEncryptionProcess();
                         
                 
                         // if(element.Value.removalCondition == true)
@@ -101,7 +102,7 @@ namespace Task_8
                             element.Value.inputFilePath = "./resources/decryptedPart"+(counter+1)+".txt";
                         
                         //MessageBox.Show("started DECRYPTION " + counter + " input: " + element.Value.inputFilePath + " out: " + element.Value.outputFilePath);
-                        element.Value.RunDecryptionProcess(CypherAlgorithm.DES, 8, 3);
+                        element.Value.RunDecryptionProcess();
 
                         MessageBox.Show("FINISHED DECRYPTION " + counter);
                         element = prev;
@@ -120,10 +121,63 @@ namespace Task_8
 
         private void OnCancelButtonClick(object sender, RoutedEventArgs e)
         {
-            var temp = _mainWindowViewModel.TasksList.First.Value;
-            temp.Cancel();
-        }
+            for (var element = _mainWindowViewModel.TasksList.First; element != null;)
+            {
+                var next = element.Next;
 
-        
+                element.Value.Cancel();
+                
+                element = next;
+            }
+
+            _mainWindowViewModel.TasksList.Clear();
+        }
+        private void OnAddButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (_mainWindowViewModel.ChosenAlgorithm == CypherAlgorithm.None)
+                MessageBox.Show("Choose the algorithm first!");
+            else
+            {
+                switch (_mainWindowViewModel.ChosenAlgorithm)
+                {
+                    case CypherAlgorithm.DES:
+                        _mainWindowViewModel.TasksList.AddLast(new TaskManager(_mainWindowViewModel.ChosenAlgorithm, 8, 8, 2));
+                        break;
+                    case CypherAlgorithm.TripleDES:
+                        _mainWindowViewModel.TasksList.AddLast(new TaskManager(_mainWindowViewModel.ChosenAlgorithm, 8, 8, 2));
+                        break;
+                    case CypherAlgorithm.Rijndael:
+                        _mainWindowViewModel.TasksList.AddLast(new TaskManager(_mainWindowViewModel.ChosenAlgorithm, _mainWindowViewModel.RijndaelBlockSize, _mainWindowViewModel.RijndaelKeySize, 1));
+                        break;
+                    case CypherAlgorithm.RSA:
+                        _mainWindowViewModel.TasksList.AddLast(new TaskManager(_mainWindowViewModel.ChosenAlgorithm, 16, -1, 1));
+                        break;
+                }
+            }
+                
+            
+            MessageBox.Show("Added, chain size: " + _mainWindowViewModel.TasksList.Count);
+        }
+        private void ComboBox_Selected(object sender, RoutedEventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            TextBlock selectedItem = (TextBlock)comboBox.SelectedItem;
+            _mainWindowViewModel.SetChosenAlgorithm(selectedItem.Text);
+            // MessageBox.Show(selectedItem.Text);
+        }
+        private void ComboBoxRijndaelBlockSizeSelected(object sender, RoutedEventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            TextBlock selectedItem = (TextBlock)comboBox.SelectedItem;
+            _mainWindowViewModel.RijndaelBlockSize = Int32.Parse(selectedItem.Text)/8;
+            // MessageBox.Show(selectedItem.Text);
+        }
+        private void ComboBoxRijndaelKeySizeSelected(object sender, RoutedEventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            TextBlock selectedItem = (TextBlock)comboBox.SelectedItem;
+            _mainWindowViewModel.RijndaelKeySize = Int32.Parse(selectedItem.Text)/8;
+            // MessageBox.Show(selectedItem.Text);
+        }
     }
 }

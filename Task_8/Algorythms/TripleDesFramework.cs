@@ -8,14 +8,40 @@ namespace Task_8.Algorythms
 {
     public class TripleDesFramework : SymmetricCryptoFramework<TripleDES>
     {
-
-        public TripleDesFramework(byte[] key = null, byte[] iv = null)
+        
+        public TripleDesFramework(byte[] key = null, byte[] iv = null, bool generateKey = false)
         {
             _algorythm =  TripleDES.Create();
-            Key = key ?? _algorythm.Key;
-            IV = iv ?? _algorythm.IV;
+            Key = key;
+            IV = iv;
+            _algorythm.Padding = PaddingMode.Zeros;
+
+            if (generateKey)
+                Key = _algorythm.Key;
+            if (IV == null)
+                IV = new byte[]{ 0, 0, 0, 0, 0, 0, 0, 0};
         }
-        
+
+
+
+        public void ExportKey(string outPutFile)
+        {
+            using (var outputStream = File.Open(outPutFile, FileMode.Create))
+                outputStream.Write(Key, 0, Key.Length);
+        }
+        public void ImportKey(string inPutFile)
+        {
+            try
+            {
+                Key = new byte[8];
+                using (var inputStream = File.OpenRead(inPutFile))
+                    inputStream.Read(Key, 0, 8); // 8 bytes = 64 bit key
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
         
         public void Test()
         {

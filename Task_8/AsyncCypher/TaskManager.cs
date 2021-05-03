@@ -17,14 +17,24 @@ namespace Task_8.AsyncCypher
 
         public byte[] TempKey;
 
+        private CypherAlgorithm algorithm;
+        private int blockSize;
+        private int keySize;
+        private int blocksQuantity;
+        
         private CancellationTokenSource tokenSource = new CancellationTokenSource();
-        public TaskManager()
+        public TaskManager(CypherAlgorithm _algorithm, int _blockSize, int _keySize, int _blocksQuantity)
         {
+            algorithm = _algorithm;
+            blockSize = _blockSize;
+            keySize = _keySize;
+            blocksQuantity = _blocksQuantity;
+
             //new ASCIIEncoding().GetBytes(sData);
             //MessageBox.Show("Decrypted data: " + new ASCIIEncoding().GetString(Final));
         }
         
-        public void RunEncryptionProcess(CypherAlgorithm algorithm, int blockSize, int blocksQuantity)
+        public void RunEncryptionProcess()
         {
             //https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.taskcompletionsource-1?view=net-5.0
             Task<TaskProperties>[] allTasks = new Task<TaskProperties>[blocksQuantity];
@@ -41,9 +51,20 @@ namespace Task_8.AsyncCypher
                 {
                     // Were we already canceled?
                     ct.ThrowIfCancellationRequested();
+
+                    try
+                    {
+                        using (FileStream fs = new FileStream(inputFilePath, FileMode.Open, FileAccess.Read))
+                            taskCompletionSource.SetResult(CypherMethods.encryptBlock(new TaskProperties(i1,
+                                    blocksQuantity, algorithm,
+                                    ReadDesiredPart(fs, i1 * blockSize, (i1 + 1) * blockSize)), TempKey, keySize,
+                                keyFilePath));
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show(exception.Message);
+                    }
                     
-                    using (FileStream fs = new FileStream(inputFilePath, FileMode.Open, FileAccess.Read))
-                        taskCompletionSource.SetResult(encryptBlock(new TaskProperties(i1,  blocksQuantity, algorithm, ReadDesiredPart(fs, i1*blockSize, (i1+1)*blockSize))));
                 }, tokenSource.Token);
 
                 allTasks[i] = task;
@@ -76,7 +97,7 @@ namespace Task_8.AsyncCypher
                 
             }
         }
-        public void RunDecryptionProcess(CypherAlgorithm algorithm, int blockSize, int blocksQuantity)
+        public void RunDecryptionProcess()
         {
             //https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.taskcompletionsource-1?view=net-5.0
             Task<TaskProperties>[] allTasks = new Task<TaskProperties>[blocksQuantity];
@@ -93,14 +114,19 @@ namespace Task_8.AsyncCypher
                 {
                     // Were we already canceled?
                     ct.ThrowIfCancellationRequested();
-                    
-                    using (FileStream fs = new FileStream(inputFilePath, FileMode.Open, FileAccess.Read))
-                    {
-                        var result = decryptBlock(new TaskProperties(i1, blocksQuantity, algorithm,
-                            ReadDesiredPart(fs, i1 * blockSize, (i1 + 1) * blockSize)));
-                        taskCompletionSource.SetResult(result);
-                    }
 
+                    try
+                    {
+                        using (FileStream fs = new FileStream(inputFilePath, FileMode.Open, FileAccess.Read))
+                        {
+                            var result = CypherMethods.decryptBlock(new TaskProperties(i1, blocksQuantity, algorithm,
+                                ReadDesiredPart(fs, i1 * blockSize, (i1 + 1) * blockSize)), keySize, keyFilePath);
+                            taskCompletionSource.SetResult(result);
+                        }
+                    }catch (Exception exception)
+                    {
+                        MessageBox.Show(exception.Message);
+                    }
                 });
 
                 allTasks[i] = task;
@@ -157,60 +183,6 @@ namespace Task_8.AsyncCypher
             }
         }
 
-        protected TaskProperties encryptBlock(TaskProperties props)
-        {
-            byte[] encryptedData = null;
-            
-            switch (props.Algorithm)
-            {
-                case CypherAlgorithm.DES:
-                    DesFramework cypherFramework;
-                    if (TempKey == null)
-                    {
-                        cypherFramework = new DesFramework();
-                        cypherFramework.ImportKey(keyFilePath);
-                        TempKey = cypherFramework.Key;
-                    }
-                    else
-                        cypherFramework = new DesFramework(key: TempKey);
-                    
-                    
-                    encryptedData = cypherFramework.EncryptData(props.Data);
-                    
-                    //EXPORT THE USED KEY
-                    if(props.BlockNumber == props.BlocksQuantity - 1)
-                        cypherFramework.ExportKey(keyFilePath);
-                    return new TaskProperties(props.BlockNumber, props.BlocksQuantity,  props.Algorithm, encryptedData);
-                    break;
-            }
-
-            return null;
-        }
-        protected TaskProperties decryptBlock(TaskProperties props)
-        {
-            byte[] decryptedData = null;
-            
-            switch (props.Algorithm)
-            {
-                case CypherAlgorithm.DES:
-                    DesFramework cypherFramework = new DesFramework();
-                    
-                    cypherFramework.ImportKey(keyFilePath);
-                    //MessageBox.Show("IMPORTED KEY " + cypherFramework.Key);
-
-                    decryptedData = cypherFramework.DecryptData(props.Data);
-                    
-                    //MessageBox.Show(new ASCIIEncoding().GetString(decryptedData));
-                    
-                    return new TaskProperties(props.BlockNumber, props.BlocksQuantity, props.Algorithm, decryptedData);
-                    break;
-            }
-
-            return null;
-        }
-        
-        
-        
         public byte[] ReadDesiredPart(FileStream fs, int startPosition, int endPosition) {
 
             byte[] buffer = new byte[endPosition - startPosition];

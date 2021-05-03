@@ -62,6 +62,7 @@
         </Compile>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="AsyncCypher\CypherMethods.cs" />
         <Compile Include="AsyncCypher\TaskManager.cs" />
         <Compile Include="AsyncCypher\TaskProperties.cs" />
         <Compile Include="MainWindow.xaml.cs">
