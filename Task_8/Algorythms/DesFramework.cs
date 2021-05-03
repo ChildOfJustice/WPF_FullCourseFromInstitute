@@ -47,6 +47,7 @@ namespace Task_8.Algorythms
                 using (var inputStream = File.OpenRead(inPutFile))
                 {
                     inputStream.Read(Key, 0, 8); // 8 bytes = 64 bit key
+                    //MessageBox.Show("THE KEY IS " + new ASCIIEncoding().GetString(Key));
                     // var key = "";
                     // foreach (var VARIABLE in Key)
                     // {

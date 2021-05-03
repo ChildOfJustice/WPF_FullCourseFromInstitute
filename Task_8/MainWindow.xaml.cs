@@ -51,7 +51,7 @@ namespace Task_8
                 
                         // if(element.Value.removalCondition == true)
                         //     myCollection.Remove(element); // as a side effect it.Next == null
-                        MessageBox.Show("FINISHED ENCRYPTION " + counter);
+                        //MessageBox.Show("FINISHED ENCRYPTION " + counter);
                         element = next;
                         counter++;
                     }
@@ -104,7 +104,7 @@ namespace Task_8
                         //MessageBox.Show("started DECRYPTION " + counter + " input: " + element.Value.inputFilePath + " out: " + element.Value.outputFilePath);
                         element.Value.RunDecryptionProcess();
 
-                        MessageBox.Show("FINISHED DECRYPTION " + counter);
+                        //MessageBox.Show("FINISHED DECRYPTION " + counter);
                         element = prev;
                         counter--;
                     }

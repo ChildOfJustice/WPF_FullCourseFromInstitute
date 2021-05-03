@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Windows;
 using Task_8.Algorythms;
 
@@ -16,7 +17,7 @@ namespace Task_8.AsyncCypher
                     DesFramework desFramework;
                     if (tempKey == null)
                     {
-                        desFramework = new DesFramework();
+                        desFramework = new DesFramework(generateKey: true);
                         desFramework.ImportKey(keyFilePath);
                         tempKey = desFramework.Key;
                     }
@@ -25,10 +26,12 @@ namespace Task_8.AsyncCypher
                     
                     
                     encryptedData = desFramework.EncryptData(props.Data);
-                    
+                    //MessageBox.Show(new ASCIIEncoding().GetString(encryptedData));
                     //EXPORT THE USED KEY
+                    
                     if(props.BlockNumber == props.BlocksQuantity - 1)
-                        desFramework.ExportKey(keyFilePath);
+                            desFramework.ExportKey(keyFilePath);
+                   
                     return new TaskProperties(props.BlockNumber, props.BlocksQuantity,  props.Algorithm, encryptedData);
                     break;
                 case CypherAlgorithm.TripleDES:
@@ -38,6 +41,7 @@ namespace Task_8.AsyncCypher
                         tripleDesFramework = new TripleDesFramework();
                         tripleDesFramework.ImportKey(keyFilePath);
                         tempKey = tripleDesFramework.Key;
+                        
                     }
                     else
                         tripleDesFramework = new TripleDesFramework(key: tempKey);
