@@ -8,28 +8,87 @@ namespace Task_8.Algorythms
 {
     public class DesFramework : SymmetricCryptoFramework<DES>
     {
-        public DesFramework(byte[] key = null, byte[] iv = null)
+        public DesFramework(byte[] key = null, byte[] iv = null, bool generateKey = false)
         {
             _algorythm =  DES.Create();
-            Key = key ?? _algorythm.Key;
-            IV = iv ?? _algorythm.IV;
+            Key = key;
+            IV = iv;
+            _algorythm.Padding = PaddingMode.Zeros;
+
+            if (generateKey)
+                Key = _algorythm.Key;
+            if (IV == null)
+                IV = new byte[]{ 0, 0, 0, 0, 0, 0, 0, 0};
         }
 
+
+
+        public void ExportKey(string outPutFile)
+        {
+            using (var outputStream = File.Open(outPutFile, FileMode.Create))
+            {
+                
+                outputStream.Write(Key, 0, Key.Length);
+                // var key = "";
+                // foreach (var VARIABLE in Key)
+                // {
+                //     key += (VARIABLE - '0');
+                // }
+                //
+                // MessageBox.Show("!!!export " + new ASCIIEncoding().GetString(Key));
+                // MessageBox.Show("!!!export in bytes IS " + key);
+            }
+        }
+        public void ImportKey(string inPutFile)
+        {
+            try
+            {
+                Key = new byte[8];
+                using (var inputStream = File.OpenRead(inPutFile))
+                {
+                    inputStream.Read(Key, 0, 8); // 8 bytes = 64 bit key
+                    // var key = "";
+                    // foreach (var VARIABLE in Key)
+                    // {
+                    //     key += (VARIABLE - '0');
+                    // }
+                    //
+                    // MessageBox.Show("THE KEY IS " + new ASCIIEncoding().GetString(Key));
+                    // MessageBox.Show("THE KEY in bytes IS " + key);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+
+            }
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
         public void Test()
         {
             try
             {
                 string sData = "Here is some data to encrypt.";
+                MessageBox.Show("Text that will be encrypted with DES: " + sData);
+                
                 
                 var Data = EncryptData(new ASCIIEncoding().GetBytes(sData));
                 string encryptedString = "";
                 foreach (var @byte in Data)
                     encryptedString += @byte;
-                MessageBox.Show(encryptedString);
+                MessageBox.Show("Encrypted data: " + encryptedString);
+                
                 
                 var Final = DecryptData(Data);
-                
-                MessageBox.Show(new ASCIIEncoding().GetString(Final));
+                MessageBox.Show("Decrypted data: " + new ASCIIEncoding().GetString(Final));
             }
             catch (Exception ex)
             {

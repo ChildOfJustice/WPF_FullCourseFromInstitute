@@ -22,16 +22,17 @@ namespace Task_8.Algorythms
             try
             {
                 string sData = "Here is some data to encrypt.";
-                
+                MessageBox.Show("Text that will be encrypted with Triple DES: " + sData);
+
                 var Data = EncryptData(new ASCIIEncoding().GetBytes(sData));
                 string encryptedString = "";
                 foreach (var @byte in Data)
                     encryptedString += @byte;
-                MessageBox.Show(encryptedString);
+                MessageBox.Show("Encrypted data: " + encryptedString);
                 
                 var Final = DecryptData(Data);
                 
-                MessageBox.Show(new ASCIIEncoding().GetString(Final));
+                MessageBox.Show("Decrypted data: " + new ASCIIEncoding().GetString(Final));
             }
             catch (Exception ex)
             {

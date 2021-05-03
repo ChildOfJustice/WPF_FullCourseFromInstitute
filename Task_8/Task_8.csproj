@@ -50,26 +50,23 @@
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </ApplicationDefinition>
-        <Page Include="MainWindow.xaml">
-            <Generator>MSBuild:Compile</Generator>
-            <SubType>Designer</SubType>
-        </Page>
-        <Compile Include="Algorythms\RsaFramework.cs" />
-        <Compile Include="Algorythms\SymmetricCryptoFramework.cs" />
+        <Compile Include="Algorythms\CypherAlgorithm.cs" />
         <Compile Include="Algorythms\DesFramework.cs" />
         <Compile Include="Algorythms\RijndaelFramework.cs" />
+        <Compile Include="Algorythms\RsaFramework.cs" />
+        <Compile Include="Algorythms\SymmetricCryptoFramework.cs" />
         <Compile Include="Algorythms\TripleDesFramework.cs" />
         <Compile Include="App.xaml.cs">
             <DependentUpon>App.xaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
-        <Compile Include="MainWindow.xaml.cs">
-            <DependentUpon>MainWindow.xaml</DependentUpon>
-            <SubType>Code</SubType>
-        </Compile>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="MainWindowViewModel.cs" />
+        <Compile Include="AsyncCypher\TaskManager.cs" />
+        <Compile Include="AsyncCypher\TaskProperties.cs" />
+        <Compile Include="MainWindow.xaml.cs">
+          <DependentUpon>MainWindow.xaml</DependentUpon>
+        </Compile>
         <Compile Include="Properties\AssemblyInfo.cs">
             <SubType>Code</SubType>
         </Compile>
@@ -91,6 +88,14 @@
         <Project>{0968504f-8023-4a5b-94c1-b11aa2edf274}</Project>
         <Name>Task_3</Name>
       </ProjectReference>
+    </ItemGroup>
+    <ItemGroup>
+      <Page Include="MainWindow.xaml" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="resources\*">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

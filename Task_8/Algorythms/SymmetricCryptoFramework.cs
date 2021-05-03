@@ -2,6 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Security.RightsManagement;
+using System.Windows;
 
 namespace Task_8.Algorythms
 {
@@ -79,7 +80,7 @@ namespace Task_8.Algorythms
             }
             catch (CryptographicException e)
             {
-                Console.WriteLine("A Cryptographic error occurred: {0}", e.Message);
+                MessageBox.Show("A Cryptographic error occurred: " + e.Message );
                 return null;
             }
         }

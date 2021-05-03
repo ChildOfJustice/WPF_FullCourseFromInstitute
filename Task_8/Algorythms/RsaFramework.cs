@@ -49,6 +49,7 @@ namespace Task_8.Algorythms
 
             //we need some data to encrypt
             var plainTextData = "foobar";
+            MessageBox.Show("Text that will be encrypted with RSA: " + plainTextData);
 
             //for encryption, always handle bytes...
             var bytesPlainTextData = System.Text.Encoding.Unicode.GetBytes(plainTextData);

@@ -1,11 +1,11 @@
 ﻿<Window x:Class="Task_8.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Task_8"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="450" Width="800">
     <DockPanel>
         <Grid>
             <Grid.RowDefinitions>
@@ -18,18 +18,20 @@
             </Grid.ColumnDefinitions>
             
             <Button
+                x:Name="TestButton"
                 Grid.Column="0"
                 Grid.Row="0"
                 Click="OnEncryptButtonClick"
-                >
-                Encrypt
+                Foreground="Blue"
+                FontSize="100"
+            >
+                Test
             </Button>
-            <Button
-                Grid.Column="1"
-                Grid.Row="0">
-                Decrypt
-            </Button>
+            <!-- <Button -->
+            <!--     Grid.Column="1" -->
+            <!--     Grid.Row="0"> -->
+            <!--     Decrypt -->
+            <!-- </Button> -->
         </Grid>
     </DockPanel>
-    
 </Window>
