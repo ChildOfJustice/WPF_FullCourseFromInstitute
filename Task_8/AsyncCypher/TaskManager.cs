@@ -11,24 +11,17 @@ namespace Task_8.AsyncCypher
 {
     public class TaskManager
     {
-        public string outPutFilePath = "./resources/result.txt";
-        public string filePath = "./resources/text.txt";
+        public string outputFilePath = "./resources/result.txt";
+        public string inputFilePath = "./resources/text.txt";
         public string keyFilePath = "./resources/key";
-        public string ivFilePath = "./resources/iv";
 
         public byte[] TempKey;
-        public byte[] TempIv;
 
-
+        private CancellationTokenSource tokenSource = new CancellationTokenSource();
         public TaskManager()
         {
-
-            var des = new DesFramework(generateKey: true);
-
-            TempKey = des.Key;
             //new ASCIIEncoding().GetBytes(sData);
             //MessageBox.Show("Decrypted data: " + new ASCIIEncoding().GetString(Final));
-
         }
         
         public void RunEncryptionProcess(CypherAlgorithm algorithm, int blockSize, int blocksQuantity)
@@ -36,6 +29,8 @@ namespace Task_8.AsyncCypher
             //https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.taskcompletionsource-1?view=net-5.0
             Task<TaskProperties>[] allTasks = new Task<TaskProperties>[blocksQuantity];
             
+            CancellationToken ct = tokenSource.Token;
+            
             for (int i = 0; i < blocksQuantity; i++)
             {
                 TaskCompletionSource<TaskProperties> taskCompletionSource = new TaskCompletionSource<TaskProperties>();
@@ -44,36 +39,50 @@ namespace Task_8.AsyncCypher
                 var i1 = i;
                 Task.Factory.StartNew(() =>
                 {
-                    using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                    // Were we already canceled?
+                    ct.ThrowIfCancellationRequested();
+                    
+                    using (FileStream fs = new FileStream(inputFilePath, FileMode.Open, FileAccess.Read))
                         taskCompletionSource.SetResult(encryptBlock(new TaskProperties(i1,  blocksQuantity, algorithm, ReadDesiredPart(fs, i1*blockSize, (i1+1)*blockSize))));
-                });
+                }, tokenSource.Token);
 
                 allTasks[i] = task;
             }
 
-
-            using (var outputStream = File.Open(outPutFilePath, FileMode.Create))
+            if (ct.IsCancellationRequested)
             {
-                foreach (var promise in allTasks)
-                {
-                    try
-                    {
-                        //WILL BE LOCKED ON THIS AND WAIT UNTIL A PROMISE WILL BE RESOLVED
-                        outputStream.Write(promise.Result.Data, 0, promise.Result.Data.Length);
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show(e.Message);
-                    }
-                }
+                // Clean up here, then...
+                ct.ThrowIfCancellationRequested();
             }
-            
+            else
+            {
+                using (var outputStream = File.Open(outputFilePath, FileMode.Create))
+                {
+                    foreach (var promise in allTasks)
+                    {
+                        try
+                        {
+                            //WILL BE LOCKED ON THIS AND WAIT UNTIL A PROMISE WILL BE RESOLVED
+                            outputStream.Write(promise.Result.Data, 0, promise.Result.Data.Length);
+                        }
+                        catch (Exception e)
+                        {
+                            MessageBox.Show(e.Message);
+                        }
+                    }
+                    outputStream.Close();
+                }
+
+                
+            }
         }
         public void RunDecryptionProcess(CypherAlgorithm algorithm, int blockSize, int blocksQuantity)
         {
             //https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.taskcompletionsource-1?view=net-5.0
             Task<TaskProperties>[] allTasks = new Task<TaskProperties>[blocksQuantity];
             
+            CancellationToken ct = tokenSource.Token;
+            
             for (int i = 0; i < blocksQuantity; i++)
             {
                 TaskCompletionSource<TaskProperties> taskCompletionSource = new TaskCompletionSource<TaskProperties>();
@@ -82,15 +91,14 @@ namespace Task_8.AsyncCypher
                 var i1 = i;
                 Task.Factory.StartNew(() =>
                 {
-                    using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                    // Were we already canceled?
+                    ct.ThrowIfCancellationRequested();
+                    
+                    using (FileStream fs = new FileStream(inputFilePath, FileMode.Open, FileAccess.Read))
                     {
-
                         var result = decryptBlock(new TaskProperties(i1, blocksQuantity, algorithm,
                             ReadDesiredPart(fs, i1 * blockSize, (i1 + 1) * blockSize)));
-                        //MessageBox.Show("THE MAIN ERROR: " + new ASCIIEncoding().GetString(result.Data));
                         taskCompletionSource.SetResult(result);
-                        // MessageBox.Show("OMG: " + new ASCIIEncoding().GetString(decryptBlock(new TaskProperties(i1, algorithm,
-                        //     ReadDesiredPart(fs, i1 * blockSize, (i1 + 1) * blockSize))).Data));
                     }
 
                 });
@@ -98,45 +106,53 @@ namespace Task_8.AsyncCypher
                 allTasks[i] = task;
             }
 
-
-            int blockNumber = 0;
-            using (var outputStream = File.Open(outPutFilePath, FileMode.Create))
+            if (ct.IsCancellationRequested)
             {
-                foreach (var promise in allTasks)
+                // Clean up here, then...
+                ct.ThrowIfCancellationRequested();
+            }
+            else
+            {
+                int blockNumber = 0;
+                using (var outputStream = File.Open(outputFilePath, FileMode.Create))
                 {
-                    blockNumber++;
-                    try
+                    foreach (var promise in allTasks)
                     {
-                        if (blockNumber == blocksQuantity)
+                        blockNumber++;
+                        try
                         {
-                            //WILL BE LOCKED ON THIS AND WAIT UNTIL A PROMISE WILL BE RESOLVED
-                            var byteData = promise.Result.Data;
-
-                            int lastByteIndex;
-                            for (lastByteIndex = byteData.Length - 1; lastByteIndex >= 0; lastByteIndex--)
+                            if (blockNumber == blocksQuantity)
                             {
-                                if(byteData[lastByteIndex] != 0)
-                                    break;
-                                
+                                //WILL BE LOCKED ON THIS AND WAIT UNTIL A PROMISE WILL BE RESOLVED
+                                var byteData = promise.Result.Data;
+
+                                int lastByteIndex;
+                                for (lastByteIndex = byteData.Length - 1; lastByteIndex >= 0; lastByteIndex--)
+                                {
+                                    if (byteData[lastByteIndex] != 0)
+                                        break;
+
+                                }
+
+                                var dataToWrite = new byte[lastByteIndex + 1];
+                                Array.Copy(byteData, dataToWrite, lastByteIndex + 1);
+                                outputStream.Write(dataToWrite, 0, dataToWrite.Length);
+                            }
+                            else
+                            {
+                                //WILL BE LOCKED ON THIS AND WAIT UNTIL A PROMISE WILL BE RESOLVED
+                                outputStream.Write(promise.Result.Data, 0, promise.Result.Data.Length);
                             }
 
-                            var dataToWrite = new byte[lastByteIndex + 1];
-                            Array.Copy(byteData, dataToWrite, lastByteIndex + 1);
-                            outputStream.Write(dataToWrite, 0, dataToWrite.Length);
                         }
-                        else
+                        catch (Exception e)
                         {
-                            //WILL BE LOCKED ON THIS AND WAIT UNTIL A PROMISE WILL BE RESOLVED
-                            outputStream.Write(promise.Result.Data, 0, promise.Result.Data.Length);
+                            MessageBox.Show(e.Message);
                         }
-                        
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show(e.Message);
-                    }
 
-                    
+
+                    }
+                    outputStream.Close();
                 }
             }
         }
@@ -184,7 +200,7 @@ namespace Task_8.AsyncCypher
 
                     decryptedData = cypherFramework.DecryptData(props.Data);
                     
-                    MessageBox.Show(new ASCIIEncoding().GetString(decryptedData));
+                    //MessageBox.Show(new ASCIIEncoding().GetString(decryptedData));
                     
                     return new TaskProperties(props.BlockNumber, props.BlocksQuantity, props.Algorithm, decryptedData);
                     break;
@@ -211,6 +227,12 @@ namespace Task_8.AsyncCypher
             //}
 
             return buffer;
+        }
+
+
+        public void Cancel()
+        {
+            tokenSource.Cancel();
         }
     }
 }
