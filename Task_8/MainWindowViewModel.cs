@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Windows.Media.Imaging;
 using Task_3.ViewModels;
 using Task_8.Algorythms;
 using Task_8.AsyncCypher;
@@ -19,6 +20,30 @@ namespace Task_8
         public String PublicKeyFile;
         public String PrivateKeyFile;
 
+        public MainWindowViewModel()
+        {
+            _img = new BitmapImage(new Uri("C:\\Users\\Administrator\\Desktop\\READY\\ReadyRPKS\\Task_8\\resources\\mainMenu.jpg"));
+        }
+
+        
+        private BitmapImage _img;
+
+        public BitmapImage ImageContent
+        {
+            get =>
+                _img;
+
+            set
+            {
+                _img = value;
+                OnPropertyChanged(nameof(ImageContent));
+            }
+        }
+        
+        
+        
+        
+        
         public void SetChosenAlgorithm(string algorithmName)
         {
             switch (algorithmName)

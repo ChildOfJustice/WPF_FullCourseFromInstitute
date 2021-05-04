@@ -9,138 +9,169 @@
     <DockPanel>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="200" />
+                <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            
-            <Button
-                Grid.Column="0"
-                Grid.Row="0"
-                Click="OnEncryptButtonClick"
-                Foreground="Blue"
-                FontSize="100"
-            >
-                Test
-            </Button>
-            <Button
-                Grid.Column="1"
-                Grid.Row="0"
-                Click="OnDecryptButtonClick"
-                Foreground="Green"
-                FontSize="100">
-                Decrypt
-            </Button>
-            <Button
-                Grid.Column="1"
-                Grid.Row="1"
-                Click="OnCancelButtonClick"
-                Foreground="Red"
-                FontSize="100"
-            >
-                Cancel
-            </Button>
             
             
-            <StackPanel
-                Grid.Column="0"
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                
+                <Image
+                    Source="{Binding ImageContent}"></Image>
+                
+                <StackPanel
+                    Grid.Column="1"
+                    Grid.Row="0">
+                    
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock TextAlignment="Center">Control</TextBlock>
+                    </Grid>
+                    
+                    
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel
+                            Grid.Column="0"
+                            Grid.Row="0">
+                            <TextBlock TextAlignment="Center">
+                                Choose the algorithm to add
+                            </TextBlock>
+                            <ComboBox Height="30" VerticalAlignment="Top"
+                                      SelectionChanged="ComboBox_Selected">
+                                <TextBlock>DES</TextBlock>
+                                <TextBlock>TripleDES</TextBlock>
+                                <TextBlock>Rijndael</TextBlock>
+                                <TextBlock>RSA</TextBlock>
+                            </ComboBox>
+                            <Button Click="OnAddButtonClick">
+                                Add
+                            </Button>
+                            <Button Click="OnChooseSymmetricKeyFileButtonClick">
+                                Symmetric key file
+                            </Button>
+                        </StackPanel>
+                        
+                        <StackPanel
+                            Grid.Column="1"
+                            Grid.Row="0">
+                            <TextBlock TextAlignment="Center">
+                                Rijndael block size
+                            </TextBlock>
+                            <ComboBox Height="30" VerticalAlignment="Top"
+                                      SelectionChanged="ComboBoxRijndaelBlockSizeSelected">
+                                <TextBlock>128</TextBlock>
+                                <TextBlock>192</TextBlock>
+                                <TextBlock>256</TextBlock>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Column="2"
+                            Grid.Row="0">
+                            <TextBlock TextAlignment="Center">
+                                Rijndael key size
+                            </TextBlock>
+                            <ComboBox Height="30" VerticalAlignment="Top"
+                                      SelectionChanged="ComboBoxRijndaelKeySizeSelected">
+                                <TextBlock>128</TextBlock>
+                                <TextBlock>192</TextBlock>
+                                <TextBlock>256</TextBlock>
+                            </ComboBox>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Button
+                                    Padding="0.5"
+                                    Click="OnChoosePublicKeyFileButtonClick">
+                                    Pub key file
+                                </Button>
+                                
+                                <Button Grid.Column="1"
+                                    Padding="0.5"
+                                    Click="OnChoosePrivateKeyFileButtonClick">
+                                    Private key file
+                                </Button>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+               
+            </Grid>
+            
+            
+            <Grid
                 Grid.Row="1">
                 
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <TextBlock TextAlignment="Center">Control</TextBlock>
-                </Grid>
-                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
                 
                 
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     
-                    <StackPanel
+                    <Button
                         Grid.Column="0"
-                        Grid.Row="0">
-                        <TextBlock TextAlignment="Center">
-                            Choose the algorithm to add
-                        </TextBlock>
-                        <ComboBox Name="phonesList" Height="30" VerticalAlignment="Top"
-                                  SelectionChanged="ComboBox_Selected">
-                            <TextBlock>DES</TextBlock>
-                            <TextBlock>TripleDES</TextBlock>
-                            <TextBlock>Rijndael</TextBlock>
-                            <TextBlock>RSA</TextBlock>
-                        </ComboBox>
-                        <Button Click="OnAddButtonClick">
-                            Add
-                        </Button>
-                        <Button Click="OnChooseSymmetricKeyFileButtonClick">
-                            Symmetric key file
-                        </Button>
-                    </StackPanel>
+                        Click="OnEncryptButtonClick"
+                        Foreground="DimGray"
+                        FontSize="50"
+                        Margin="5">
                     
-                    <StackPanel
+                        Encrypt
+                    </Button>
+                    <Button
                         Grid.Column="1"
-                        Grid.Row="0">
-                        <TextBlock TextAlignment="Center">
-                            Rijndael block size
-                        </TextBlock>
-                        <ComboBox Height="30" VerticalAlignment="Top"
-                                  SelectionChanged="ComboBoxRijndaelBlockSizeSelected">
-                            <TextBlock>128</TextBlock>
-                            <TextBlock>192</TextBlock>
-                            <TextBlock>256</TextBlock>
-                        </ComboBox>
-                    </StackPanel>
-                    <StackPanel
+                        Click="OnDecryptButtonClick"
+                        Foreground="DimGray"
+                        FontSize="50"
+                        Margin="5">
+                    
+                        Decrypt
+                    </Button>
+                    <Button
                         Grid.Column="2"
-                        Grid.Row="0">
-                        <TextBlock TextAlignment="Center">
-                            Rijndael key size
-                        </TextBlock>
-                        <ComboBox Height="30" VerticalAlignment="Top"
-                                  SelectionChanged="ComboBoxRijndaelKeySizeSelected">
-                            <TextBlock>128</TextBlock>
-                            <TextBlock>192</TextBlock>
-                            <TextBlock>256</TextBlock>
-                        </ComboBox>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Button
-                                Padding="0.5"
-                                Click="OnChoosePublicKeyFileButtonClick">
-                                Pub key file
-                            </Button>
-                            
-                            <Button Grid.Column="1"
-                                Padding="0.5"
-                                Click="OnChoosePrivateKeyFileButtonClick">
-                                Private key file
-                            </Button>
-                        </Grid>
-                    </StackPanel>
-                    
-                    
+                        Click="OnCancelButtonClick"
+                        Foreground="Red"
+                        FontSize="50"
+                        Margin="5">
+                        Cancel
+                    </Button>
                 </Grid>
                 
-            </StackPanel>
-           
+                
+                <TextBlock
+                    Grid.Row="1">
+                    
+                    Here you can add the chain
+                </TextBlock>
+                
+            </Grid>
+            
         </Grid>
     </DockPanel>
 </Window>
