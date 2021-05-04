@@ -15,6 +15,10 @@ namespace Task_8
         public int RijndaelBlockSize = 16;
         public int RijndaelKeySize = 16;
 
+        public String SymmetricKeyFile;
+        public String PublicKeyFile;
+        public String PrivateKeyFile;
+
         public void SetChosenAlgorithm(string algorithmName)
         {
             switch (algorithmName)

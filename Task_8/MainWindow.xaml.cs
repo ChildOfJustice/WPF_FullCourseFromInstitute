@@ -138,25 +138,88 @@ namespace Task_8
                 MessageBox.Show("Choose the algorithm first!");
             else
             {
+                TaskManager tm;
                 switch (_mainWindowViewModel.ChosenAlgorithm)
                 {
                     case CypherAlgorithm.DES:
-                        _mainWindowViewModel.TasksList.AddLast(new TaskManager(_mainWindowViewModel.ChosenAlgorithm, 8, 8, 2));
+                        tm = new TaskManager(_mainWindowViewModel.ChosenAlgorithm, 8, 8);
+
+                        if (_mainWindowViewModel.SymmetricKeyFile != null)
+                            tm.keyFilePath = _mainWindowViewModel.SymmetricKeyFile;
+                        _mainWindowViewModel.TasksList.AddLast(tm);
                         break;
                     case CypherAlgorithm.TripleDES:
-                        _mainWindowViewModel.TasksList.AddLast(new TaskManager(_mainWindowViewModel.ChosenAlgorithm, 8, 8, 2));
+                        tm = new TaskManager(_mainWindowViewModel.ChosenAlgorithm, 8, 8);
+                        
+                        if (_mainWindowViewModel.SymmetricKeyFile != null)
+                            tm.keyFilePath = _mainWindowViewModel.SymmetricKeyFile;
+                        _mainWindowViewModel.TasksList.AddLast(tm);
                         break;
                     case CypherAlgorithm.Rijndael:
-                        _mainWindowViewModel.TasksList.AddLast(new TaskManager(_mainWindowViewModel.ChosenAlgorithm, _mainWindowViewModel.RijndaelBlockSize, _mainWindowViewModel.RijndaelKeySize, 1));
+                        tm = new TaskManager(_mainWindowViewModel.ChosenAlgorithm,
+                            _mainWindowViewModel.RijndaelBlockSize, _mainWindowViewModel.RijndaelKeySize);
+                        if (_mainWindowViewModel.SymmetricKeyFile != null)
+                            tm.keyFilePath = _mainWindowViewModel.SymmetricKeyFile;
+                        _mainWindowViewModel.TasksList.AddLast(tm);
                         break;
                     case CypherAlgorithm.RSA:
-                        _mainWindowViewModel.TasksList.AddLast(new TaskManager(_mainWindowViewModel.ChosenAlgorithm, 16, -1, 1));
+                        _mainWindowViewModel.TasksList.AddLast(new TaskManager(_mainWindowViewModel.ChosenAlgorithm, 16, -1));
+                        //TODO add pub and priv key path to the TaskManager
                         break;
                 }
             }
                 
             
             MessageBox.Show("Added, chain size: " + _mainWindowViewModel.TasksList.Count);
+        }
+
+        private void OnChooseSymmetricKeyFileButtonClick(object sender, RoutedEventArgs e)
+        {
+            // Create OpenFileDialog 
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            
+            // Display OpenFileDialog by calling ShowDialog method 
+            Nullable<bool> result = dlg.ShowDialog();
+            
+            // Get the selected file name and display in a TextBox 
+            if (result == true)
+            {
+                // Open document 
+                string filename = dlg.FileName;
+                _mainWindowViewModel.SymmetricKeyFile = filename;
+            }
+        }
+        private void OnChoosePublicKeyFileButtonClick(object sender, RoutedEventArgs e)
+        {
+            // Create OpenFileDialog 
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            
+            // Display OpenFileDialog by calling ShowDialog method 
+            Nullable<bool> result = dlg.ShowDialog();
+            
+            // Get the selected file name and display in a TextBox 
+            if (result == true)
+            {
+                // Open document 
+                string filename = dlg.FileName;
+                _mainWindowViewModel.PublicKeyFile = filename;
+            }
+        }
+        private void OnChoosePrivateKeyFileButtonClick(object sender, RoutedEventArgs e)
+        {
+            // Create OpenFileDialog 
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            
+            // Display OpenFileDialog by calling ShowDialog method 
+            Nullable<bool> result = dlg.ShowDialog();
+            
+            // Get the selected file name and display in a TextBox 
+            if (result == true)
+            {
+                // Open document 
+                string filename = dlg.FileName;
+                _mainWindowViewModel.PrivateKeyFile = filename;
+            }
         }
         private void ComboBox_Selected(object sender, RoutedEventArgs e)
         {

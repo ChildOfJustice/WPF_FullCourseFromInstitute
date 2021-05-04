@@ -6,7 +6,7 @@ namespace Task_8.AsyncCypher
 {
     public class CypherMethods
     {
-        public static TaskProperties encryptBlock(TaskProperties props, byte[] tempKey, int keySize, string keyFilePath)
+        public static TaskProperties encryptBlock(TaskProperties props, TaskManager owner, int keySize, string keyFilePath)
         {
             byte[] encryptedData = null;
             
@@ -14,14 +14,14 @@ namespace Task_8.AsyncCypher
             {
                 case CypherAlgorithm.DES:
                     DesFramework desFramework;
-                    if (tempKey == null)
+                    if (owner.TempKey == null)
                     {
                         desFramework = new DesFramework();
                         desFramework.ImportKey(keyFilePath);
-                        tempKey = desFramework.Key;
+                        owner.TempKey = desFramework.Key;
                     }
                     else
-                        desFramework = new DesFramework(key: tempKey);
+                        desFramework = new DesFramework(key: owner.TempKey);
                     
                     
                     encryptedData = desFramework.EncryptData(props.Data);
@@ -33,14 +33,14 @@ namespace Task_8.AsyncCypher
                     break;
                 case CypherAlgorithm.TripleDES:
                     TripleDesFramework tripleDesFramework;
-                    if (tempKey == null)
+                    if (owner.TempKey == null)
                     {
                         tripleDesFramework = new TripleDesFramework();
                         tripleDesFramework.ImportKey(keyFilePath);
-                        tempKey = tripleDesFramework.Key;
+                        owner.TempKey = tripleDesFramework.Key;
                     }
                     else
-                        tripleDesFramework = new TripleDesFramework(key: tempKey);
+                        tripleDesFramework = new TripleDesFramework(key: owner.TempKey);
                     
                     
                     encryptedData = tripleDesFramework.EncryptData(props.Data);
@@ -52,13 +52,13 @@ namespace Task_8.AsyncCypher
                     break;
                 case CypherAlgorithm.Rijndael:
                     RijndaelFramework rijndaelFramework;
-                    if (tempKey == null)
+                    if (owner.TempKey == null)
                     {
                         rijndaelFramework = new RijndaelFramework(props.Data.Length, keySize);
                         rijndaelFramework.ImportKey(keyFilePath);
                     }
                     else
-                        rijndaelFramework = new RijndaelFramework(props.Data.Length, key: tempKey);
+                        rijndaelFramework = new RijndaelFramework(props.Data.Length, key: owner.TempKey);
                     
                     
                     encryptedData = rijndaelFramework.EncryptData(props.Data);

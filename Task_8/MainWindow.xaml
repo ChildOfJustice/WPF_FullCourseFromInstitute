@@ -84,6 +84,9 @@
                         <Button Click="OnAddButtonClick">
                             Add
                         </Button>
+                        <Button Click="OnChooseSymmetricKeyFileButtonClick">
+                            Symmetric key file
+                        </Button>
                     </StackPanel>
                     
                     <StackPanel
@@ -111,6 +114,26 @@
                             <TextBlock>192</TextBlock>
                             <TextBlock>256</TextBlock>
                         </ComboBox>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Button
+                                Padding="0.5"
+                                Click="OnChoosePublicKeyFileButtonClick">
+                                Pub key file
+                            </Button>
+                            
+                            <Button Grid.Column="1"
+                                Padding="0.5"
+                                Click="OnChoosePrivateKeyFileButtonClick">
+                                Private key file
+                            </Button>
+                        </Grid>
                     </StackPanel>
                     
                     

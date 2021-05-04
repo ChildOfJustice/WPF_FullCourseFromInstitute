@@ -23,12 +23,11 @@ namespace Task_8.AsyncCypher
         private int blocksQuantity;
         
         private CancellationTokenSource tokenSource = new CancellationTokenSource();
-        public TaskManager(CypherAlgorithm _algorithm, int _blockSize, int _keySize, int _blocksQuantity)
+        public TaskManager(CypherAlgorithm _algorithm, int _blockSize, int _keySize)
         {
             algorithm = _algorithm;
             blockSize = _blockSize;
             keySize = _keySize;
-            blocksQuantity = _blocksQuantity;
 
             //new ASCIIEncoding().GetBytes(sData);
             //MessageBox.Show("Decrypted data: " + new ASCIIEncoding().GetString(Final));
@@ -37,10 +36,11 @@ namespace Task_8.AsyncCypher
         public void RunEncryptionProcess()
         {
             //https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.taskcompletionsource-1?view=net-5.0
-            Task<TaskProperties>[] allTasks = new Task<TaskProperties>[blocksQuantity];
-            
             CancellationToken ct = tokenSource.Token;
             
+            blocksQuantity = DetermineBlocksQuantity(true);
+            
+            Task<TaskProperties>[] allTasks = new Task<TaskProperties>[blocksQuantity];
             for (int i = 0; i < blocksQuantity; i++)
             {
                 TaskCompletionSource<TaskProperties> taskCompletionSource = new TaskCompletionSource<TaskProperties>();
@@ -54,11 +54,31 @@ namespace Task_8.AsyncCypher
 
                     try
                     {
-                        using (FileStream fs = new FileStream(inputFilePath, FileMode.Open, FileAccess.Read))
+                        //https://stackoverflow.com/questions/36537929/rsa-encryption-decryption-of-multiple-blocks-in-c-sharp
+                        int endPositionToRead = (i1 + 1) * blockSize;
+                        if (algorithm == CypherAlgorithm.RSA)
+                            endPositionToRead = -1;
+                        
+                        if (i1 == blocksQuantity-1 && endPositionToRead != -1)
+                        {
+                            //encrypt the size and add it
+                            byte[] block = new byte[blockSize];
+                            var tempArr = new ASCIIEncoding().GetBytes(new FileInfo(inputFilePath).Length.ToString());
+                            Array.Copy(tempArr, block, tempArr.Length);
+                            
                             taskCompletionSource.SetResult(CypherMethods.encryptBlock(new TaskProperties(i1,
                                     blocksQuantity, algorithm,
-                                    ReadDesiredPart(fs, i1 * blockSize, (i1 + 1) * blockSize)), TempKey, keySize,
+                                    block), this, keySize,
                                 keyFilePath));
+                        }
+                        else
+                        {
+                            using (FileStream fs = new FileStream(inputFilePath, FileMode.Open, FileAccess.Read))
+                                taskCompletionSource.SetResult(CypherMethods.encryptBlock(new TaskProperties(i1,
+                                        blocksQuantity, algorithm,
+                                        ReadDesiredPart(fs, i1 * blockSize, endPositionToRead)), this, keySize,
+                                    keyFilePath));
+                        }
                     }
                     catch (Exception exception)
                     {
@@ -100,10 +120,11 @@ namespace Task_8.AsyncCypher
         public void RunDecryptionProcess()
         {
             //https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.taskcompletionsource-1?view=net-5.0
-            Task<TaskProperties>[] allTasks = new Task<TaskProperties>[blocksQuantity];
-            
             CancellationToken ct = tokenSource.Token;
-            
+
+            blocksQuantity = DetermineBlocksQuantity(false);
+
+            Task<TaskProperties>[] allTasks = new Task<TaskProperties>[blocksQuantity];
             for (int i = 0; i < blocksQuantity; i++)
             {
                 TaskCompletionSource<TaskProperties> taskCompletionSource = new TaskCompletionSource<TaskProperties>();
@@ -117,12 +138,18 @@ namespace Task_8.AsyncCypher
 
                     try
                     {
+                        //https://stackoverflow.com/questions/36537929/rsa-encryption-decryption-of-multiple-blocks-in-c-sharp
+                        int endPositionToRead = (i1 + 1) * blockSize;
+                        if (algorithm == CypherAlgorithm.RSA)
+                            endPositionToRead = -1;
+                        
                         using (FileStream fs = new FileStream(inputFilePath, FileMode.Open, FileAccess.Read))
                         {
                             var result = CypherMethods.decryptBlock(new TaskProperties(i1, blocksQuantity, algorithm,
-                                ReadDesiredPart(fs, i1 * blockSize, (i1 + 1) * blockSize)), keySize, keyFilePath);
+                                ReadDesiredPart(fs, i1 * blockSize, endPositionToRead)), keySize, keyFilePath);
                             taskCompletionSource.SetResult(result);
                         }
+
                     }catch (Exception exception)
                     {
                         MessageBox.Show(exception.Message);
@@ -140,35 +167,45 @@ namespace Task_8.AsyncCypher
             else
             {
                 int blockNumber = 0;
-                using (var outputStream = File.Open(outputFilePath, FileMode.Create))
+                int actualFileSize = 0;
+                int fullArrSize = 0;
+                byte[] plainTextBytes = null;
+                using (BinaryWriter binWriter = new BinaryWriter(new MemoryStream()))
                 {
                     foreach (var promise in allTasks)
                     {
                         blockNumber++;
                         try
                         {
-                            if (blockNumber == blocksQuantity)
+                            if (blockNumber == blocksQuantity - 1 && algorithm != CypherAlgorithm.RSA)
                             {
-                                //WILL BE LOCKED ON THIS AND WAIT UNTIL A PROMISE WILL BE RESOLVED
-                                var byteData = promise.Result.Data;
-
-                                int lastByteIndex;
-                                for (lastByteIndex = byteData.Length - 1; lastByteIndex >= 0; lastByteIndex--)
-                                {
-                                    if (byteData[lastByteIndex] != 0)
-                                        break;
-
-                                }
-
-                                var dataToWrite = new byte[lastByteIndex + 1];
-                                Array.Copy(byteData, dataToWrite, lastByteIndex + 1);
-                                outputStream.Write(dataToWrite, 0, dataToWrite.Length);
+                                //MessageBox.Show("file SIZE IS: " + new ASCIIEncoding().GetString(promise.Result.Data));
+                                actualFileSize = Int32.Parse(new ASCIIEncoding().GetString(promise.Result.Data));
                             }
                             else
                             {
                                 //WILL BE LOCKED ON THIS AND WAIT UNTIL A PROMISE WILL BE RESOLVED
-                                outputStream.Write(promise.Result.Data, 0, promise.Result.Data.Length);
+                                binWriter.Write(promise.Result.Data, 0, promise.Result.Data.Length);
+                                fullArrSize = promise.Result.Data.Length;
                             }
+                            // if (blockNumber == blocksQuantity)
+                            // {
+                            //     //WILL BE LOCKED ON THIS AND WAIT UNTIL A PROMISE WILL BE RESOLVED
+                            //     var byteData = promise.Result.Data;
+                            //
+                            //     int lastByteIndex;
+                            //     for (lastByteIndex = byteData.Length - 1; lastByteIndex >= 0; lastByteIndex--)
+                            //     {
+                            //         if (byteData[lastByteIndex] != 0)
+                            //             break;
+                            //
+                            //     }
+                            //
+                            //     var dataToWrite = new byte[lastByteIndex + 1];
+                            //     Array.Copy(byteData, dataToWrite, lastByteIndex + 1);
+                            //     outputStream.Write(dataToWrite, 0, dataToWrite.Length);
+                            // }
+                            
 
                         }
                         catch (Exception e)
@@ -178,27 +215,68 @@ namespace Task_8.AsyncCypher
 
 
                     }
+                    BinaryReader binReader =
+                        new BinaryReader(binWriter.BaseStream);
+                    // Set Position to the beginning of the stream.
+                    binReader.BaseStream.Position = 0;
+                    
+                    if (algorithm != CypherAlgorithm.RSA)
+                    {
+                        plainTextBytes = binReader.ReadBytes(actualFileSize);
+                        //var count = memStream.Read(plainTextBytes, 0, actualFileSize);
+                    }
+                    else
+                    {
+                        plainTextBytes = binReader.ReadBytes(fullArrSize);
+                    }
+                    
+                }
+                
+                using (var outputStream = File.Open(outputFilePath, FileMode.Create))
+                {
+                    outputStream.Write(plainTextBytes, 0, plainTextBytes.Length);
                     outputStream.Close();
                 }
             }
+            
+        }
+
+        private int DetermineBlocksQuantity(bool encrypt)
+        {
+            if (algorithm == CypherAlgorithm.RSA)
+                return 1;
+            FileInfo fi = new FileInfo(inputFilePath);
+            //MessageBox.Show("SIZE IS " + fi.Length + " blocks will be " + (int) (fi.Length / blockSize + 1));
+            int res = (int) (fi.Length / blockSize + 1);
+            if (encrypt)
+                res++; // + 1 more for the file size block
+            return res; 
         }
 
         public byte[] ReadDesiredPart(FileStream fs, int startPosition, int endPosition) {
 
-            byte[] buffer = new byte[endPosition - startPosition];
+            if (endPosition != -1)
+            {
+                byte[] buffer = new byte[endPosition - startPosition];
 
-            int arrayOffset = 0;
+                int arrayOffset = 0;
 
-            //lock (fsLock) {
-                fs.Seek(startPosition, SeekOrigin.Begin);
+                //lock (fsLock) {
+                    fs.Seek(startPosition, SeekOrigin.Begin);
 
-                int numBytesRead = fs.Read(buffer, arrayOffset , endPosition - startPosition);
+                    int numBytesRead = fs.Read(buffer, arrayOffset , endPosition - startPosition);
 
-                //  Typically used if you're in a loop, reading blocks at a time
-                arrayOffset += numBytesRead;
-            //}
+                    //  Typically used if you're in a loop, reading blocks at a time
+                    arrayOffset += numBytesRead;
+                //}
 
-            return buffer;
+                return buffer;
+            }
+            else
+            {
+                //reading all
+                return File.ReadAllBytes(fs.Name);
+            }
         }
 
 
