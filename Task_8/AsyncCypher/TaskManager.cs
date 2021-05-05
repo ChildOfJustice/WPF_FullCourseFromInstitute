@@ -14,10 +14,12 @@ namespace Task_8.AsyncCypher
         public string outputFilePath = "./resources/result.txt";
         public string inputFilePath = "./resources/text.txt";
         public string keyFilePath = "./resources/key";
+        public string pubKeyFilePath = "./resources/keypub";
+        public string privateKeyFilePath = "./resources/keyprivate";
 
         public byte[] TempKey;
 
-        private CypherAlgorithm algorithm;
+        public CypherAlgorithm algorithm;
         private int blockSize;
         private int keySize;
         private int blocksQuantity;
@@ -28,7 +30,7 @@ namespace Task_8.AsyncCypher
             algorithm = _algorithm;
             blockSize = _blockSize;
             keySize = _keySize;
-
+            
             //new ASCIIEncoding().GetBytes(sData);
             //MessageBox.Show("Decrypted data: " + new ASCIIEncoding().GetString(Final));
         }
@@ -56,8 +58,13 @@ namespace Task_8.AsyncCypher
                     {
                         //https://stackoverflow.com/questions/36537929/rsa-encryption-decryption-of-multiple-blocks-in-c-sharp
                         int endPositionToRead = (i1 + 1) * blockSize;
+                        string keyFilePathToUse = keyFilePath;
                         if (algorithm == CypherAlgorithm.RSA)
+                        {
                             endPositionToRead = -1;
+                            keyFilePathToUse = pubKeyFilePath;
+                        }
+                        
                         
                         if (i1 == blocksQuantity-1 && endPositionToRead != -1)
                         {
@@ -65,11 +72,12 @@ namespace Task_8.AsyncCypher
                             byte[] block = new byte[blockSize];
                             var tempArr = new ASCIIEncoding().GetBytes(new FileInfo(inputFilePath).Length.ToString());
                             Array.Copy(tempArr, block, tempArr.Length);
+
                             
                             taskCompletionSource.SetResult(CypherMethods.encryptBlock(new TaskProperties(i1,
                                     blocksQuantity, algorithm,
                                     block), this, keySize,
-                                keyFilePath));
+                                keyFilePathToUse));
                         }
                         else
                         {
@@ -77,7 +85,7 @@ namespace Task_8.AsyncCypher
                                 taskCompletionSource.SetResult(CypherMethods.encryptBlock(new TaskProperties(i1,
                                         blocksQuantity, algorithm,
                                         ReadDesiredPart(fs, i1 * blockSize, endPositionToRead)), this, keySize,
-                                    keyFilePath));
+                                    keyFilePathToUse));
                         }
                     }
                     catch (Exception exception)
@@ -140,13 +148,18 @@ namespace Task_8.AsyncCypher
                     {
                         //https://stackoverflow.com/questions/36537929/rsa-encryption-decryption-of-multiple-blocks-in-c-sharp
                         int endPositionToRead = (i1 + 1) * blockSize;
+                        string keyFilePathToUse = keyFilePath;
                         if (algorithm == CypherAlgorithm.RSA)
+                        {
+                            keyFilePathToUse = privateKeyFilePath;
                             endPositionToRead = -1;
+                        }
+                            
                         
                         using (FileStream fs = new FileStream(inputFilePath, FileMode.Open, FileAccess.Read))
                         {
                             var result = CypherMethods.decryptBlock(new TaskProperties(i1, blocksQuantity, algorithm,
-                                ReadDesiredPart(fs, i1 * blockSize, endPositionToRead)), keySize, keyFilePath);
+                                ReadDesiredPart(fs, i1 * blockSize, endPositionToRead)), keySize, keyFilePathToUse);
                             taskCompletionSource.SetResult(result);
                         }
 

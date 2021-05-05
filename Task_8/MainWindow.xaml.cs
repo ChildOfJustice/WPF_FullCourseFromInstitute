@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -131,47 +132,130 @@ namespace Task_8
             }
 
             _mainWindowViewModel.TasksList.Clear();
+            _mainWindowViewModel.Chain = new LinkedList<string>();
         }
         private void OnAddButtonClick(object sender, RoutedEventArgs e)
         {
             if (_mainWindowViewModel.ChosenAlgorithm == CypherAlgorithm.None)
-                MessageBox.Show("Choose the algorithm first!");
-            else
             {
-                TaskManager tm;
-                switch (_mainWindowViewModel.ChosenAlgorithm)
-                {
-                    case CypherAlgorithm.DES:
-                        tm = new TaskManager(_mainWindowViewModel.ChosenAlgorithm, 8, 8);
-
-                        if (_mainWindowViewModel.SymmetricKeyFile != null)
-                            tm.keyFilePath = _mainWindowViewModel.SymmetricKeyFile;
-                        _mainWindowViewModel.TasksList.AddLast(tm);
-                        break;
-                    case CypherAlgorithm.TripleDES:
-                        tm = new TaskManager(_mainWindowViewModel.ChosenAlgorithm, 8, 8);
-                        
-                        if (_mainWindowViewModel.SymmetricKeyFile != null)
-                            tm.keyFilePath = _mainWindowViewModel.SymmetricKeyFile;
-                        _mainWindowViewModel.TasksList.AddLast(tm);
-                        break;
-                    case CypherAlgorithm.Rijndael:
-                        tm = new TaskManager(_mainWindowViewModel.ChosenAlgorithm,
-                            _mainWindowViewModel.RijndaelBlockSize, _mainWindowViewModel.RijndaelKeySize);
-                        if (_mainWindowViewModel.SymmetricKeyFile != null)
-                            tm.keyFilePath = _mainWindowViewModel.SymmetricKeyFile;
-                        _mainWindowViewModel.TasksList.AddLast(tm);
-                        break;
-                    case CypherAlgorithm.RSA:
-                        _mainWindowViewModel.TasksList.AddLast(new TaskManager(_mainWindowViewModel.ChosenAlgorithm, 16, -1));
-                        //TODO add pub and priv key path to the TaskManager
-                        break;
-                }
+                MessageBox.Show("Choose the algorithm first!");
+                return;
             }
                 
             
-            MessageBox.Show("Added, chain size: " + _mainWindowViewModel.TasksList.Count);
+            int algorithmNumberInChain;
+            try
+            {
+                algorithmNumberInChain = Int32.Parse(AlgorithmNumberHolder.Text);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show("Wrong number in chain");
+                return;
+            }
+
+            string algorithmName = "";
+            TaskManager tm = null;
+            switch (_mainWindowViewModel.ChosenAlgorithm)
+            {
+                case CypherAlgorithm.DES:
+                    tm = new TaskManager(_mainWindowViewModel.ChosenAlgorithm, 8, 8);
+
+                    if (_mainWindowViewModel.SymmetricKeyFile != null)
+                        tm.keyFilePath = _mainWindowViewModel.SymmetricKeyFile;
+                    
+                    algorithmName = "DES | ";
+                    break;
+                case CypherAlgorithm.TripleDES:
+                    tm = new TaskManager(_mainWindowViewModel.ChosenAlgorithm, 8, 8);
+                    
+                    if (_mainWindowViewModel.SymmetricKeyFile != null)
+                        tm.keyFilePath = _mainWindowViewModel.SymmetricKeyFile;
+                    
+                    algorithmName = "Triple DES | ";
+                    break;
+                case CypherAlgorithm.Rijndael:
+                    tm = new TaskManager(_mainWindowViewModel.ChosenAlgorithm,
+                        _mainWindowViewModel.RijndaelBlockSize, _mainWindowViewModel.RijndaelKeySize);
+                    if (_mainWindowViewModel.SymmetricKeyFile != null)
+                        tm.keyFilePath = _mainWindowViewModel.SymmetricKeyFile;
+                    
+                    algorithmName = "Rijndael | ";
+                    break;
+                case CypherAlgorithm.RSA:
+                    tm = new TaskManager(_mainWindowViewModel.ChosenAlgorithm, 16, -1);
+                    if (_mainWindowViewModel.PublicKeyFile != null)
+                        tm.pubKeyFilePath = _mainWindowViewModel.PublicKeyFile;
+                    if (_mainWindowViewModel.PrivateKeyFile != null)
+                        tm.privateKeyFilePath = _mainWindowViewModel.PrivateKeyFile;
+                    
+                    algorithmName = "RSA | ";
+                    break;
+            }
+
+
+            try
+            {
+                AddToLinkedList(tm, algorithmNumberInChain, algorithmName);
+                
+                MessageBox.Show("Added, chain size: " + _mainWindowViewModel.TasksList.Count);
+            }
+            catch (ArgumentException exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
         }
+
+        private void AddToLinkedList(TaskManager tm, int number, String algorithmName)
+        {
+            int _counter = 0;
+            if (number > _mainWindowViewModel.TasksList.Count+1 || number < 0)
+            {
+                throw new ArgumentException("Cannot add to this place: " + number);
+            }
+
+            if (_mainWindowViewModel.TasksList.Count == 0)
+            {
+                _mainWindowViewModel.TasksList.AddFirst(tm);
+                var temp = _mainWindowViewModel.Chain;
+                temp.AddFirst(algorithmName);
+                _mainWindowViewModel.Chain = temp;
+                return;
+            }
+            if (number == _mainWindowViewModel.TasksList.Count + 1)
+            {
+                _mainWindowViewModel.TasksList.AddLast(tm);
+                var temp = _mainWindowViewModel.Chain;
+                temp.AddLast(algorithmName);
+                _mainWindowViewModel.Chain = temp;
+                return;
+            }
+
+            var chainElement = _mainWindowViewModel.Chain.First;
+            for (var element = _mainWindowViewModel.TasksList.First; element != null;)
+            {
+                var next = element.Next;
+                var chainNext = chainElement.Next;
+
+                if (number == _counter)
+                {
+                    _mainWindowViewModel.TasksList.AddBefore(element, tm);
+                    
+                    var temp = _mainWindowViewModel.Chain;
+                    temp.AddBefore(chainElement, algorithmName);
+                    _mainWindowViewModel.Chain = temp;
+                    return;
+                }
+                
+                element = next;
+                chainElement = chainNext;
+                _counter++;
+            }
+
+            throw new ArgumentException("Could not add to the chain");
+
+        }
+        
 
         private void OnChooseSymmetricKeyFileButtonClick(object sender, RoutedEventArgs e)
         {

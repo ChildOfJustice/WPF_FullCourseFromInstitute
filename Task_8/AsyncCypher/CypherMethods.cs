@@ -77,8 +77,8 @@ namespace Task_8.AsyncCypher
                     rsaFramework = new RsaFramework();
                     
                         
-                    rsaFramework.ImportPubKey(keyFilePath + "pub");
-                    rsaFramework.ImportPrivateKey(keyFilePath + "private");
+                    rsaFramework.ImportPubKey(keyFilePath);
+                    //rsaFramework.ImportPrivateKey(keyFilePath + "private");
 
                     encryptedData = rsaFramework.EncryptData(props.Data);
                     // MessageBox.Show(new ASCIIEncoding().GetString(encryptedData));
@@ -129,8 +129,8 @@ namespace Task_8.AsyncCypher
                     return new TaskProperties(props.BlockNumber, props.BlocksQuantity, props.Algorithm, decryptedData);
                 case CypherAlgorithm.RSA:
                     RsaFramework rsaFramework = new RsaFramework();
-                    rsaFramework.ImportPubKey(keyFilePath+"pub");
-                    rsaFramework.ImportPrivateKey(keyFilePath+"private");
+                    //rsaFramework.ImportPubKey(keyFilePath+"pub");
+                    rsaFramework.ImportPrivateKey(keyFilePath);
                     
                     decryptedData = rsaFramework.DecryptData(props.Data);
                     

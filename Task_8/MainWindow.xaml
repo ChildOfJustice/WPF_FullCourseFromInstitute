@@ -59,6 +59,12 @@
                                 <TextBlock>Rijndael</TextBlock>
                                 <TextBlock>RSA</TextBlock>
                             </ComboBox>
+                            <TextBlock TextAlignment="Center">
+                                Place to add
+                            </TextBlock>
+                            <TextBox x:Name="AlgorithmNumberHolder">
+                                1
+                            </TextBox>
                             <Button Click="OnAddButtonClick">
                                 Add
                             </Button>
@@ -112,6 +118,7 @@
                                     Private key file
                                 </Button>
                             </Grid>
+                            
                         </StackPanel>
                     </Grid>
                 </StackPanel>
@@ -165,9 +172,10 @@
                 
                 
                 <TextBlock
-                    Grid.Row="1">
-                    
-                    Here you can add the chain
+                    Grid.Row="1"
+                    TextAlignment="Center"
+                    FontSize="50"
+                    Text="{Binding ChainInString}">
                 </TextBlock>
                 
             </Grid>

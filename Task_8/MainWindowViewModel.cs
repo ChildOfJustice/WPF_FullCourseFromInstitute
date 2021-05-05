@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Media.Imaging;
 using Task_3.ViewModels;
 using Task_8.Algorythms;
@@ -27,6 +28,8 @@ namespace Task_8
 
         
         private BitmapImage _img;
+        private String chainInString;
+        private LinkedList<String> chain = new LinkedList<string>();
 
         public BitmapImage ImageContent
         {
@@ -39,9 +42,45 @@ namespace Task_8
                 OnPropertyChanged(nameof(ImageContent));
             }
         }
-        
-        
-        
+        public String ChainInString
+        {
+            get =>
+                chainInString;
+
+            set
+            {
+                chainInString = value;
+                OnPropertyChanged(nameof(ChainInString));
+            }
+        }
+        public LinkedList<String> Chain
+        {
+            get =>
+                chain;
+
+            set
+            {
+                chain = value;
+                ChainInString = ChainToString();
+            }
+        }
+
+
+
+        private String ChainToString()
+        {
+            String res = "";
+            for (var element = chain.First; element != null;)
+            {
+                var next = element.Next;
+
+                res += element.Value;
+                
+                element = next;
+            }
+
+            return res;
+        }
         
         
         public void SetChosenAlgorithm(string algorithmName)
