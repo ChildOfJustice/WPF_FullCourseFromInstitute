@@ -187,7 +187,7 @@ namespace Task_8.AsyncCypher
                 {
                     foreach (var promise in allTasks)
                     {
-                        blockNumber++;
+                        
                         try
                         {
                             if (blockNumber == blocksQuantity - 1 && algorithm != CypherAlgorithm.RSA)
@@ -225,7 +225,7 @@ namespace Task_8.AsyncCypher
                         {
                             MessageBox.Show(e.Message);
                         }
-
+                        blockNumber++;
 
                     }
                     BinaryReader binReader =

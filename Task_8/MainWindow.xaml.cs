@@ -148,7 +148,7 @@ namespace Task_8
             {
                 algorithmNumberInChain = Int32.Parse(AlgorithmNumberHolder.Text);
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Wrong number in chain");
                 return;
@@ -222,7 +222,7 @@ namespace Task_8
                 _mainWindowViewModel.Chain = temp;
                 return;
             }
-            if (number == _mainWindowViewModel.TasksList.Count + 1)
+            if (number == _mainWindowViewModel.TasksList.Count + 1 || number == _mainWindowViewModel.TasksList.Count)
             {
                 _mainWindowViewModel.TasksList.AddLast(tm);
                 var temp = _mainWindowViewModel.Chain;
