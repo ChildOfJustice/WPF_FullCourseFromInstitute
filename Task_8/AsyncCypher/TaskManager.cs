@@ -260,7 +260,11 @@ namespace Task_8.AsyncCypher
                 return 1;
             FileInfo fi = new FileInfo(inputFilePath);
             //MessageBox.Show("SIZE IS " + fi.Length + " blocks will be " + (int) (fi.Length / blockSize + 1));
-            int res = (int) (fi.Length / blockSize + 1);
+            int res;
+            if (fi.Length % blockSize == 0)
+                res = (int) (fi.Length / blockSize);
+            else
+                res = (int) (fi.Length / blockSize + 1);
             if (encrypt)
                 res++; // + 1 more for the file size block
             return res; 
