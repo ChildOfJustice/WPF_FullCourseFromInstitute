@@ -21,8 +21,8 @@
                 </Grid.ColumnDefinitions>
                 
                 
-                <Image
-                    Source="{Binding ImageContent}"></Image>
+                <!-- <Image -->
+                <!--     Source="{Binding ImageContent}"></Image> -->
                 
                 <StackPanel
                     Grid.Column="1"
