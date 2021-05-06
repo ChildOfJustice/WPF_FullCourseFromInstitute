@@ -80,7 +80,7 @@
         <!--     Content="{Binding ImageContent}" -->
         <!--     wpfStyles:AdjustedButton.ImageScaleX="120" -->
         <!-- > -->
-        <!--      -->
+        <!-- -->
         <!--     ~1~ "C:\Users\Administrator\Desktop\READY\ReadyRPKS\Task_3\Resources\img.jpg" @1@ -->
         <!-- </Button> -->
         <wpfStyles:AdjustedButton
@@ -88,7 +88,7 @@
             Grid.Column="1"
             Style="{StaticResource OwnButtonTemplate}"
             Content="{Binding ImageContent}"
-            ImageScaleX="100"
+            ImageScaleX="20"
             />
         
         <!-- <ScrollViewer -->
@@ -105,7 +105,7 @@
             Grid.Column="0"
             Style="{StaticResource MyOwnScrollViewer}"
             HorizontalScrollBarVisibility="Visible"
-            wpfStyles:AdjustedScrollViewer.ThumbColor="Navy"
+            wpfStyles:AdjustedScrollViewer.ThumbColor="Crimson"
             >
             <TextBlock TextWrapping="NoWrap">
                 asjkdbasjsdgladasbaskdbgjaskgjsdbgaskjdga
