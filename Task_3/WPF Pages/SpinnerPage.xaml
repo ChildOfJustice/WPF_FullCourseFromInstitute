@@ -1,0 +1,18 @@
+﻿<Page x:Class="Task_3.WPF_Pages.SpinnerPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Task_3.WPF_Pages"
+      xmlns:spinner="clr-namespace:Task_3.WPF_Control_Elements.Spinner"
+      mc:Ignorable="d"
+      Title="SpinnerPage" Height="450" Width="800">
+    <Grid>
+        <spinner:CircularProgressBar
+            Color="Crimson"
+            CirclesQuantity="30"
+            CirclesSize="20"
+            ClockDirection="True"
+            Speed="10"/>
+    </Grid>
+</Page>

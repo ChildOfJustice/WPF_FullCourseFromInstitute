@@ -35,143 +35,153 @@
     <!--     </wpfControlElements:Spinner> -->
     <!-- </StackPanel> -->
     
-    
-    <Grid >
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        
-        <!-- <dialogHost:DialogHostElement -->
-        <!--     AllCornerRadius="20, 20, 200, 20"     -->
-        <!--     Transparency="0.5" -->
-        <!--     Command="{Binding CommandForDialogBox, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}}" -->
-        <!--     ></dialogHost:DialogHostElement> -->
-        <!-- -->
-        
-        <!-- <wpfStyles:AdjustedScrollViewer -->
-        <!--      -->
-        <!--      -->
-        <!--     Style="{StaticResource ScrollViewerStyle}" -->
-        <!--     HorizontalScrollBarVisibility="Visible" -->
-        <!--     ThumbColor="Crimson" -->
-        <!--     > -->
-        <!--     <TextBlock>askdnglasnkdglagskadgnlasksaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</TextBlock> -->
-        <!-- </wpfStyles:AdjustedScrollViewer> -->
-        
-        <Button 
-            Grid.Row="0"
-            Grid.Column="0"
-            Foreground="{Binding ForeGroundColor}"
-            FontSize="{Binding FontSize}"
-            Background="{Binding BackGroundColor}"
-            Content="Text"
-        />
-        
-        
-        <!-- <Button -->
-        <!--     Grid.Row="0" -->
-        <!--     Grid.Column="1" -->
-        <!--     Style="{StaticResource OwnButtonTemplate}" -->
-        <!--     Content="{Binding ImageContent}" -->
-        <!--     wpfStyles:AdjustedButton.ImageScaleX="120" -->
-        <!-- > -->
-        <!-- -->
-        <!--     ~1~ "C:\Users\Administrator\Desktop\READY\ReadyRPKS\Task_3\Resources\img.jpg" @1@ -->
-        <!-- </Button> -->
-        <wpfStyles:AdjustedButton
-            Grid.Row="0"
-            Grid.Column="1"
-            Style="{StaticResource OwnButtonTemplate}"
-            Content="{Binding ImageContent}"
-            ImageScaleX="20"
-            />
-        
-        <!-- <ScrollViewer -->
-        <!--     Grid.Row="1" -->
-        <!--     Grid.Column="0" -->
-        <!--     Style="{DynamicResource ScrollViewerStyle}" -->
-        <!--     HorizontalScrollBarVisibility="Visible" -->
-        <!--     wpfStyles:AdjustedScrollViewer.ThumbColor="Crimson" > -->
-        <!--     <TextBlock>asjkdbasjsdgladas</TextBlock> -->
-        <!-- </ScrollViewer> -->
-        
-        <ScrollViewer
-            Grid.Row="1"
-            Grid.Column="0"
-            Style="{StaticResource MyOwnScrollViewer}"
-            HorizontalScrollBarVisibility="Visible"
-            wpfStyles:AdjustedScrollViewer.ThumbColor="Crimson"
-            >
-            <TextBlock TextWrapping="NoWrap">
-                asjkdbasjsdgladasbaskdbgjaskgjsdbgaskjdga
-            </TextBlock>
-        </ScrollViewer>
-        
-        
-        <!-- <Button Style="{StaticResource ButtonWithText}" -->
-        <!--         Margin="0 10" -->
-        <!--         Content="TestButtonWithText"  -->
-        <!--         Grid.Row="0" -->
-        <!--         Grid.Column="1" -->
-        <!-- /> -->
-        <!-- <Button  -->
-        <!--     Style="{DynamicResource ButtonWithImage}" -->
-        <!--     Grid.Row="1" -->
-        <!--     Grid.Column="0" -->
-        <!-- /> -->
-                    
-    
-        <!-- <ScrollViewer -->
-        <!--     Grid.Column="1" -->
-        <!--     Grid.Row="1" -->
-        <!--      -->
-        <!--     HorizontalScrollBarVisibility="Visible" -->
-        <!--     Style="{StaticResource MyScrollViewer}"> -->
-        <!--      -->
-        <!--     <TextBlock>askdnglasnkdglagskadgnlasksaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</TextBlock> -->
-        <!--     ~1~ <StackPanel> @1@ -->
-        <!--     ~1~     <Button Style="{StaticResource ButtonWithText}" @1@ -->
-        <!--     ~1~             Margin="0 10" @1@ -->
-        <!--     ~1~             Content="TestButtonWithText" /> @1@ -->
-        <!--     ~1~     <Button Style="{DynamicResource ButtonWithImage}" @1@ -->
-        <!--     ~1~             ></Button> @1@ -->
-        <!--     ~1~ </StackPanel> @1@ -->
-        <!-- </ScrollViewer> -->
-        
-        <!-- <messageDialog:MessageDialogElement -->
-        <!--     Grid.Column="1" -->
-        <!--     Grid.Row="0" -->
-        <!--      -->
-        <!--     DialogType="Alert" -->
-        <!--     Message="!ALERT!" -->
-        <!--     MessageTextSize="24" -->
-        <!--     > -->
-        <!-- </messageDialog:MessageDialogElement> -->
-        
-        <!-- <spinnerDialog:SpinnerDialogElement -->
-        <!--     Grid.Column="0" -->
-        <!--     Grid.Row="1" -->
-        <!--      -->
-        <!--     SpinnerCirclesQuantity="100" -->
-        <!--     > -->
-        <!-- </spinnerDialog:SpinnerDialogElement> -->
-        
-        
-        
-        <!-- <spinner:CircularProgressBar -->
-        <!--     Grid.Column="1" -->
-        <!--     Grid.Row="1" -->
-        <!-- -->
-        <!--     Color="Brown" -->
-        <!--     CirclesQuantity="30" -->
-        <!--     CirclesSize="20" -->
-        <!--     ClockDirection="True" -->
-        <!--     Speed="10"/> -->
-    </Grid>
+    <StackPanel Background="Aquamarine">
+        <Frame x:Name="frame"
+               Height="600">
+            
+        </Frame>
+    </StackPanel>
+    <!-- <Grid > -->
+    <!--     <Grid.RowDefinitions> -->
+    <!--         <RowDefinition Height="*" /> -->
+    <!--         <RowDefinition Height="*" /> -->
+    <!--     </Grid.RowDefinitions> -->
+    <!--     <Grid.ColumnDefinitions> -->
+    <!--         <ColumnDefinition Width="*" /> -->
+    <!--         <ColumnDefinition Width="*" /> -->
+    <!--     </Grid.ColumnDefinitions> -->
+    <!--      -->
+    <!--     ~1~ <dialogHost:DialogHostElement @1@ -->
+    <!--     ~1~     AllCornerRadius="20, 20, 200, 20"     @1@ -->
+    <!--     ~1~     Transparency="0.5" @1@ -->
+    <!--     ~1~     Command="{Binding CommandForDialogBox, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}}" @1@ -->
+    <!--     ~1~     ></dialogHost:DialogHostElement> @1@ -->
+    <!--     ~1~ @1@ -->
+    <!--      -->
+    <!--     ~1~ <wpfStyles:AdjustedScrollViewer @1@ -->
+    <!--     ~1~      @1@ -->
+    <!--     ~1~      @1@ -->
+    <!--     ~1~     Style="{StaticResource ScrollViewerStyle}" @1@ -->
+    <!--     ~1~     HorizontalScrollBarVisibility="Visible" @1@ -->
+    <!--     ~1~     ThumbColor="Crimson" @1@ -->
+    <!--     ~1~     > @1@ -->
+    <!--     ~1~     <TextBlock>askdnglasnkdglagskadgnlasksaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</TextBlock> @1@ -->
+    <!--     ~1~ </wpfStyles:AdjustedScrollViewer> @1@ -->
+    <!--      -->
+    <!--     ~1~ <Button  @1@ -->
+    <!--     ~1~     Grid.Row="0" @1@ -->
+    <!--     ~1~     Grid.Column="0" @1@ -->
+    <!--     ~1~     Foreground="{Binding ForeGroundColor}" @1@ -->
+    <!--     ~1~     FontSize="{Binding FontSize}" @1@ -->
+    <!--     ~1~     Background="{Binding BackGroundColor}" @1@ -->
+    <!--     ~1~     Content="Text" @1@ -->
+    <!--     ~1~     @1@ -->
+    <!--     ~1~ /> @1@ -->
+    <!--     <Button   -->
+    <!--         Click="OnMainButtonClick"> -->
+    <!--         Navigate -->
+    <!--     </Button> -->
+    <!--      -->
+    <!--      -->
+    <!--     ~1~ <Button @1@ -->
+    <!--     ~1~     Grid.Row="0" @1@ -->
+    <!--     ~1~     Grid.Column="1" @1@ -->
+    <!--     ~1~     Style="{StaticResource OwnButtonTemplate}" @1@ -->
+    <!--     ~1~     Content="{Binding ImageContent}" @1@ -->
+    <!--     ~1~     wpfStyles:AdjustedButton.ImageScaleX="120" @1@ -->
+    <!--     ~1~ > @1@ -->
+    <!--     ~1~ @1@ -->
+    <!--     ~1~     ~2~ "C:\Users\Administrator\Desktop\READY\ReadyRPKS\Task_3\Resources\img.jpg" @2@ @1@ -->
+    <!--     ~1~ </Button> @1@ -->
+    <!--     ~1~ <wpfStyles:AdjustedButton @1@ -->
+    <!--     ~1~     Grid.Row="0" @1@ -->
+    <!--     ~1~     Grid.Column="1" @1@ -->
+    <!--     ~1~     Style="{StaticResource OwnButtonTemplate}" @1@ -->
+    <!--     ~1~     Content="{Binding ImageContent}" @1@ -->
+    <!--     ~1~     ImageScaleX="20" @1@ -->
+    <!--     ~1~     /> @1@ -->
+    <!--      -->
+    <!--     ~1~ <ScrollViewer @1@ -->
+    <!--     ~1~     Grid.Row="1" @1@ -->
+    <!--     ~1~     Grid.Column="0" @1@ -->
+    <!--     ~1~     Style="{DynamicResource ScrollViewerStyle}" @1@ -->
+    <!--     ~1~     HorizontalScrollBarVisibility="Visible" @1@ -->
+    <!--     ~1~     wpfStyles:AdjustedScrollViewer.ThumbColor="Crimson" > @1@ -->
+    <!--     ~1~     <TextBlock>asjkdbasjsdgladas</TextBlock> @1@ -->
+    <!--     ~1~ </ScrollViewer> @1@ -->
+    <!--      -->
+    <!--     <ScrollViewer -->
+    <!--         Grid.Row="1" -->
+    <!--         Grid.Column="0" -->
+    <!--         Style="{StaticResource MyOwnScrollViewer}" -->
+    <!--         HorizontalScrollBarVisibility="Visible" -->
+    <!--         wpfStyles:AdjustedScrollViewer.ThumbColor="Crimson" -->
+    <!--         > -->
+    <!--         <TextBlock TextWrapping="NoWrap"> -->
+    <!--             asjkdbasjsdgladasbaskdbgjaskgjsdbgaskjdga -->
+    <!--         </TextBlock> -->
+    <!--     </ScrollViewer> -->
+    <!--      -->
+    <!--      -->
+    <!--     ~1~ <Button Style="{StaticResource ButtonWithText}" @1@ -->
+    <!--     ~1~         Margin="0 10" @1@ -->
+    <!--     ~1~         Content="TestButtonWithText"  @1@ -->
+    <!--     ~1~         Grid.Row="0" @1@ -->
+    <!--     ~1~         Grid.Column="1" @1@ -->
+    <!--     ~1~ /> @1@ -->
+    <!--     ~1~ <Button  @1@ -->
+    <!--     ~1~     Style="{DynamicResource ButtonWithImage}" @1@ -->
+    <!--     ~1~     Grid.Row="1" @1@ -->
+    <!--     ~1~     Grid.Column="0" @1@ -->
+    <!--     ~1~ /> @1@ -->
+    <!--                  -->
+    <!-- -->
+    <!--     ~1~ <ScrollViewer @1@ -->
+    <!--     ~1~     Grid.Column="1" @1@ -->
+    <!--     ~1~     Grid.Row="1" @1@ -->
+    <!--     ~1~      @1@ -->
+    <!--     ~1~     HorizontalScrollBarVisibility="Visible" @1@ -->
+    <!--     ~1~     Style="{StaticResource MyScrollViewer}"> @1@ -->
+    <!--     ~1~      @1@ -->
+    <!--     ~1~     <TextBlock>askdnglasnkdglagskadgnlasksaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</TextBlock> @1@ -->
+    <!--     ~1~     ~2~ <StackPanel> @2@ @1@ -->
+    <!--     ~1~     ~2~     <Button Style="{StaticResource ButtonWithText}" @2@ @1@ -->
+    <!--     ~1~     ~2~             Margin="0 10" @2@ @1@ -->
+    <!--     ~1~     ~2~             Content="TestButtonWithText" /> @2@ @1@ -->
+    <!--     ~1~     ~2~     <Button Style="{DynamicResource ButtonWithImage}" @2@ @1@ -->
+    <!--     ~1~     ~2~             ></Button> @2@ @1@ -->
+    <!--     ~1~     ~2~ </StackPanel> @2@ @1@ -->
+    <!--     ~1~ </ScrollViewer> @1@ -->
+    <!--      -->
+    <!--     ~1~ <messageDialog:MessageDialogElement @1@ -->
+    <!--     ~1~     Grid.Column="1" @1@ -->
+    <!--     ~1~     Grid.Row="0" @1@ -->
+    <!--     ~1~      @1@ -->
+    <!--     ~1~     DialogType="Alert" @1@ -->
+    <!--     ~1~     Message="!ALERT!" @1@ -->
+    <!--     ~1~     MessageTextSize="24" @1@ -->
+    <!--     ~1~     > @1@ -->
+    <!--     ~1~ </messageDialog:MessageDialogElement> @1@ -->
+    <!--      -->
+    <!--     ~1~ <spinnerDialog:SpinnerDialogElement @1@ -->
+    <!--     ~1~     Grid.Column="0" @1@ -->
+    <!--     ~1~     Grid.Row="1" @1@ -->
+    <!--     ~1~      @1@ -->
+    <!--     ~1~     SpinnerCirclesQuantity="100" @1@ -->
+    <!--     ~1~     > @1@ -->
+    <!--     ~1~ </spinnerDialog:SpinnerDialogElement> @1@ -->
+    <!--      -->
+    <!--      -->
+    <!--      -->
+    <!--     ~1~ <spinner:CircularProgressBar @1@ -->
+    <!--     ~1~     Grid.Column="1" @1@ -->
+    <!--     ~1~     Grid.Row="1" @1@ -->
+    <!--     ~1~ @1@ -->
+    <!--     ~1~     Color="Brown" @1@ -->
+    <!--     ~1~     CirclesQuantity="30" @1@ -->
+    <!--     ~1~     CirclesSize="20" @1@ -->
+    <!--     ~1~     ClockDirection="True" @1@ -->
+    <!--     ~1~     Speed="10"/> @1@ -->
+    <!-- </Grid> -->
     
 </Window>

@@ -1,0 +1,27 @@
+﻿<Page x:Class="Task_3.WPF_Pages.StartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Task_3.WPF_Pages"
+      mc:Ignorable="d"
+      Title="StartPage">
+    <StackPanel>
+        <Button
+            Margin="50"
+            Click="ButtonBase_OnClick_Binding_GoToSomePage_">
+            Go to some page
+        </Button>
+        <Button 
+            Margin="30"
+            Click="ButtonBase_OnClick">
+            Watch spinner
+        </Button>
+        <Button 
+            Margin="20"
+            Click="OnGoToDialogPageClick">
+            Watch spinner inside of a dialog
+        </Button>
+        
+    </StackPanel>
+</Page>
