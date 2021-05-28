@@ -32,18 +32,20 @@ namespace Task_3
         public MainWindow()
         {
             InitializeComponent();
-            try
-            {
-                frame.Content = new StartPage(new NavigationManager(frame.NavigationService));
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-                throw;
-            }
+            // try
+            // {
+            //     frame.Content = new StartPage(new NavigationManager(frame.NavigationService));
+            // }
+            // catch (Exception exception)
+            // {
+            //     MessageBox.Show(exception.Message);
+            //     throw;
+            // }
             
-            //DataContext = new MainWindowViewModel();
-
+            
+           
+            DataContext = new MainWindowViewModel();
+            
 
 
 

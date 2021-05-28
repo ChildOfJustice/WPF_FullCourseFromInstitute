@@ -14,9 +14,8 @@
         </Button>
         <Button 
             Margin="30"
-            Click="ButtonBase_OnClick">
-            Watch spinner
-        </Button>
+            Click="ButtonBase_OnClick"
+            Content="Watch spinner" />
         <Button 
             Margin="20"
             Click="OnGoToDialogPageClick">
