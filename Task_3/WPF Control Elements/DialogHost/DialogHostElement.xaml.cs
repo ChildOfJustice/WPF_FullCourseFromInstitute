@@ -12,7 +12,7 @@ namespace Task_3.WPF_Control_Elements.DialogHost
         public static readonly DependencyProperty CornerRadiusProperty =
             DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(DialogHostElement), new UIPropertyMetadata(new CornerRadius(0, 0, 0, 0)));
         public static readonly DependencyProperty TransparencyProperty =
-            DependencyProperty.Register("Transparency", typeof(byte), typeof(DialogHostElement), new UIPropertyMetadata((byte)0));
+            DependencyProperty.Register("Transparency", typeof(double), typeof(DialogHostElement), new UIPropertyMetadata(0.4));
         public static readonly DependencyProperty CommandProperty =
             DependencyProperty.Register("Command", typeof(RelayCommand), typeof(DialogHostElement), new UIPropertyMetadata(new RelayCommand(
                 o => { })));
@@ -22,9 +22,9 @@ namespace Task_3.WPF_Control_Elements.DialogHost
             get { return (CornerRadius) GetValue(CornerRadiusProperty); }
             set { SetValue(CornerRadiusProperty, value); }
         }
-        public byte Transparency
+        public double Transparency
         {
-            get { return (byte) GetValue(TransparencyProperty); }
+            get { return (double) GetValue(TransparencyProperty); }
             set { SetValue(TransparencyProperty, value); }
         }
         public RelayCommand Command
@@ -46,7 +46,8 @@ namespace Task_3.WPF_Control_Elements.DialogHost
         private void OnLoad(object sender, RoutedEventArgs e)
         {
             WorkSpaceBorder.CornerRadius = AllCornerRadius;
-            BackGroundBorder.Background = new SolidColorBrush(Color.FromArgb(Transparency, 0, 0, 0));
+            //BackGroundBorder.Background = new SolidColorBrush(Color.FromArgb(Transparency, 0, 0, 0));
+            BackGroundBorder.Opacity = Transparency;
             mainDataContext.OpenDialogCommand = Command;
         }
     }

@@ -1,0 +1,13 @@
+﻿1) You need to change the Color of the Thumb inside of the ScrollBar element!
+NOT the ScrollViewer!!
+2) In order to do this, you need to create your own Template for the ScrollBar
+3) Vertical AND Horizontal
+4) BUT for some reason I cannot crate my own AdjustedScrollBar with attached property "ThumbColor"
+It crashes every time I change the type of the ScrollBar
+Also you cannot do it with the ScrollViewer either - it crashes
+5) I found a work around:
+I did not inherit the AdjustedScrollViewer from the ScrollViewer class
+Then, I created a strange type of Attached property - like it did Maxim.
+After that I changed in my Template for the ScrollBar the Background property with TemplateBinding to Foreground!!!
+It's not good, but when I passing the ThumbColor from ScrollViewer to the ScrollBar as the Foreground color,
+I can use this TemplateBinding and change the color of the Thumb without any new control types and it WORKS!

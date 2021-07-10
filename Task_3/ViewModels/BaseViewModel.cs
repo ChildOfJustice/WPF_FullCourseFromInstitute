@@ -6,9 +6,17 @@ namespace Task_3.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName = "")
+        protected void OnPropertyChanged(string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        
+        protected void OnPropertiesChanged(params string[] propertiesNames)
+        {
+            foreach (var propertyName in propertiesNames)
+            {
+                OnPropertyChanged(propertyName);
+            }
         }
     }
 }

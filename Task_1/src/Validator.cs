@@ -5,19 +5,21 @@ namespace Task_1
 {
     public class Validator<T>: AbstractHandler, ICloneable
     {
-        Predicate<T> _rule;
-        private int ruleNumber;
-        List<ValidationException<T>> _exceptions;
+        private Predicate<T> _rule;
+        private int ruleNumber = -1;
+        private List<ValidationException<T>> _exceptions;
         
         public object Clone()
         {
             var clone = (Validator<T>)this.MemberwiseClone();
-            clone._rule = new Predicate<T>(this._rule);
-            clone._exceptions = new List<ValidationException<T>>();
-            foreach (var exception in this._exceptions)
-            {
-                clone._exceptions.Add(exception);
-            }
+            //clone._rule = _rule;
+           //clone._exceptions = new List<ValidationException<T>>();
+            //clone._nextHandler = _nextHandler.MemberwiseClone();
+            // foreach (var exception in this._exceptions)
+            // {
+            //     System.Console.WriteLine("PPP");
+            //     clone._exceptions.Add(exception);
+            // }
             return clone;
         }
         
@@ -38,20 +40,24 @@ namespace Task_1
             if (requestData is T requestDataT)
             {
                 Console.WriteLine("Trying rule: " + _rule.Invoke(requestDataT));
-                
+
                 if (!_rule.Invoke(requestDataT))
                 {
-                    _exceptions.Add(new ValidationException<T>("Rule number " + ruleNumber, _rule));
+                    //System.Console.WriteLine(_exceptions.Count);
+                    this._exceptions.Add(new ValidationException<T>("Rule number " + ruleNumber, _rule));
+                    //System.Console.WriteLine(_exceptions.Count);
                 }
 
 
                 if (base.Handle(requestData) is null)//the last rule
                 {
-                    if (_exceptions.Capacity == 0)
+                    if (_exceptions.Count == 0)
                     {
+                       
                         return new object();
                     }
 
+                    //Console.WriteLine(_exceptions.Count);
                     throw new AggregateException(_exceptions);
                 }
                 return new object();
@@ -62,12 +68,13 @@ namespace Task_1
             }
         }
         
-        public Validator(Predicate<T> rule, List<ValidationException<T>> exceptions) { _rule = rule; _exceptions = exceptions; }
+        public Validator(Predicate<T> rule, int _ruleNumber, List<ValidationException<T>> exceptions) { _rule = rule; _exceptions = exceptions;
+            ruleNumber = _ruleNumber;
+        }
         
         internal Validator<T> SetNextRule(Predicate<T> rule, int ruleNumber)
         {
-            this.ruleNumber = ruleNumber;
-            return this.SetNext(new Validator<T>(rule, this._exceptions)) as Validator<T>;
+            return this.SetNext(new Validator<T>(rule, ruleNumber, this._exceptions)) as Validator<T>;
         }
     }
 }

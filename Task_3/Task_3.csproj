@@ -44,26 +44,71 @@
         <Reference Include="WindowsBase" />
         <Reference Include="PresentationCore" />
         <Reference Include="PresentationFramework" />
+        <Reference Include="WindowsInput, Version=1.0.4.0, Culture=neutral, PublicKeyToken=9b287f7dc5073cad">
+          <HintPath>..\packages\InputSimulator.1.0.4.0\lib\net20\WindowsInput.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
         <ApplicationDefinition Include="App.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </ApplicationDefinition>
+        <Compile Include="Converter\Base\ConverterBase.cs" />
+        <Compile Include="Converter\Base\MultiConverterBase.cs" />
+        <Compile Include="Converter\BoolToVisibilityConverter.cs" />
+        <Compile Include="Converter\MultiBoolToBoolConverter.cs" />
+        <Compile Include="Converter\NullToBoolConverter.cs" />
+        <Compile Include="Converter\NullToVisibilityConverter.cs" />
+        <Compile Include="Converter\PercentageConverter.cs" />
         <Compile Include="ViewModels\BaseViewModel.cs" />
+        <Compile Include="ViewModels\BaseViewModelForNavigationManager.cs" />
         <Compile Include="ViewModels\MainWindowViewModel.cs" />
         <Compile Include="ViewModels\RelayCommand.cs" />
         <Compile Include="WPF Control Elements\DialogHost\DialogHostElement.xaml.cs">
           <DependentUpon>DialogHostElement.xaml</DependentUpon>
         </Compile>
         <Compile Include="WPF Control Elements\DialogHost\DialogHostViewModel.cs" />
-        <Compile Include="WPF Control Elements\DialogHost\DialogWindow.xaml.cs">
-          <DependentUpon>DialogWindow.xaml</DependentUpon>
+        <Compile Include="WPF Control Elements\MessageDialog\Alert.xaml.cs">
+          <DependentUpon>Alert.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="WPF Control Elements\MessageDialog\Confirm.xaml.cs">
+          <DependentUpon>Confirm.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="WPF Control Elements\MessageDialog\MessageDialogElement.xaml.cs">
+          <DependentUpon>MessageDialogElement.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="WPF Control Elements\MessageDialog\MessageDialogViewModel.cs" />
+        <Compile Include="WPF Control Elements\MessageDialog\Prompt.xaml.cs">
+          <DependentUpon>Prompt.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="WPF Control Elements\NavigationManager\NavigationManager.cs" />
+        <Compile Include="WPF Control Elements\ScreenKeyBoard\ScreenKeyBoardElement.xaml.cs">
+          <DependentUpon>ScreenKeyBoardElement.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="WPF Control Elements\SpinnerDialog\Content.xaml.cs">
+          <DependentUpon>Content.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="WPF Control Elements\SpinnerDialog\SpinnerDialogElement.xaml.cs">
+          <DependentUpon>SpinnerDialogElement.xaml</DependentUpon>
         </Compile>
         <Compile Include="WPF Control Elements\Spinner\CircularProgressBar.xaml.cs">
           <DependentUpon>Spinner.xaml</DependentUpon>
         </Compile>
         <Compile Include="WPF Control Elements\Spinner\SpinnerViewModel.cs" />
+        <Compile Include="WPF Pages\DialogPage.xaml.cs">
+          <DependentUpon>DialogPage.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="WPF Pages\SpinnerPage.xaml.cs">
+          <DependentUpon>SpinnerPage.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="WPF Pages\StartPage.xaml.cs">
+          <DependentUpon>StartPage.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="WPF Pages\StartPageViewModel.cs" />
+        <Compile Include="WPF Styles\AdjustedButton.cs" />
+        <Compile Include="WPF Styles\AdjustedScrollBar.cs" />
+        <Compile Include="WPF Styles\AdjustedScrollViewer.cs" />
         <Page Include="MainWindow.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
@@ -77,8 +122,17 @@
             <SubType>Code</SubType>
         </Compile>
         <Page Include="WPF Control Elements\DialogHost\DialogHostElement.xaml" />
-        <Page Include="WPF Control Elements\DialogHost\DialogWindow.xaml" />
+        <Page Include="WPF Control Elements\MessageDialog\Alert.xaml" />
+        <Page Include="WPF Control Elements\MessageDialog\Confirm.xaml" />
+        <Page Include="WPF Control Elements\MessageDialog\MessageDialogElement.xaml" />
+        <Page Include="WPF Control Elements\MessageDialog\Prompt.xaml" />
+        <Page Include="WPF Control Elements\ScreenKeyBoard\ScreenKeyBoardElement.xaml" />
+        <Page Include="WPF Control Elements\SpinnerDialog\Content.xaml" />
+        <Page Include="WPF Control Elements\SpinnerDialog\SpinnerDialogElement.xaml" />
         <Page Include="WPF Control Elements\Spinner\CircularProgressBar.xaml" />
+        <Page Include="WPF Pages\DialogPage.xaml" />
+        <Page Include="WPF Pages\SpinnerPage.xaml" />
+        <Page Include="WPF Pages\StartPage.xaml" />
         <Page Include="WPF Styles\Styles.xaml" />
     </ItemGroup>
     <ItemGroup>
@@ -97,6 +151,20 @@
     </ItemGroup>
     <ItemGroup>
         <None Include="App.config" />
+        <None Include="packages.config" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Resources" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="WPF Control Elements\ScreenKeyBoard\Keyboards.xaml" />
+      <Content Include="WPF Styles\HowToAdjustThumbColor" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Chones.Keyboard\Rife.Keyboard.csproj">
+        <Project>{efc4cf3a-a974-4e68-b8a3-2b3cd2a42484}</Project>
+        <Name>Rife.Keyboard</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

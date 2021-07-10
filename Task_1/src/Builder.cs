@@ -8,12 +8,15 @@ namespace Task_1
         private Validator<T> _validator;
         private int ruleNumber = 0;
         private Validator<T> _headPointerValidator;
+
         public Builder<T> AddRule(Predicate<T> rule)
         {
             if (_validator is null)
             {
-                _validator = new Validator<T>(rule, new List<ValidationException<T>>());
+                _validator = new Validator<T>(rule, ruleNumber,new List<ValidationException<T>>());
+                ruleNumber++;
                 _headPointerValidator = _validator;
+            
             }
             else
             {
@@ -30,9 +33,12 @@ namespace Task_1
             Validator<T> readyValidator = (Validator<T>)_headPointerValidator?.Clone() ?? throw new EmptyValidatorException("No rules in this validator.");
             //Reset(); //if you comment this, it will return the built validator each time you will call the GetValidator() method
             return readyValidator;
+
+            //Console.WriteLine("!!! " + readyValidator._exceptions.Count);
+            //Console.WriteLine("!!! " + _headPointerValidator._exceptions.Count);
             
             //you will be able to change the object outside of the builder
-            //return _headPointerValidator ?? throw new EmptyValidatorException("No rules in this validator.");
+            return _headPointerValidator ?? throw new EmptyValidatorException("No rules in this validator.");
         }
 
         public void Reset()
